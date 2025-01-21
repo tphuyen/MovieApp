@@ -3,20 +3,14 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../gen/assets.gen.dart';
 import '../../../gen/fonts.gen.dart';
+import '../../../model/movie.dart';
+import '../../detail/movie_detail_page.dart';
 
 class MovieItem extends StatelessWidget {
-  final String imageUrl;
-  final String title;
-  final double rating;
-  final List<String> genre;
-  final String duration;
+  final Movie movie;
 
   const MovieItem({
-    required this.imageUrl,
-    required this.title,
-    required this.rating,
-    required this.genre,
-    required this.duration,
+    required this.movie,
     super.key,
   });
 
@@ -29,13 +23,23 @@ class MovieItem extends StatelessWidget {
       ),
       child: Row(
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(8),
-            child: Image.asset(
-              imageUrl,
-              width: 100,
-              height: 150,
-              fit: BoxFit.cover,
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => MovieDetailPage(movie: movie),
+                ),
+              );
+            },
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: Image.asset(
+                movie.imageUrl,
+                width: 100,
+                height: 150,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
           const SizedBox(width: 16),
@@ -43,22 +47,31 @@ class MovieItem extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  title,
-                  style: const TextStyle(
-                    fontFamily: FontFamily.mulish,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w700,
+                InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => MovieDetailPage(movie: movie),
+                      ),
+                    );
+                  },
+                  child: Text(
+                    movie.title,
+                    style: const TextStyle(
+                      fontFamily: FontFamily.mulish,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                 ),
                 const SizedBox(height: 6),
                 Row(
                   children: [
-                    SvgPicture.asset(Assets.icons.star,
-                        width: 16, height: 16),
+                    SvgPicture.asset(Assets.icons.star, width: 16, height: 16),
                     const SizedBox(width: 4),
                     Text(
-                      '$rating/10 IMDb',
+                      '${movie.rating}/10 IMDb',
                       style: const TextStyle(
                           fontFamily: FontFamily.mulish,
                           fontSize: 14,
@@ -71,7 +84,7 @@ class MovieItem extends StatelessWidget {
                 //genre gọi & design
                 Wrap(
                   spacing: 8,
-                  children: genre.map((g) {
+                  children: movie.genre.map((g) {
                     return Container(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 12, vertical: 4),
@@ -105,7 +118,7 @@ class MovieItem extends StatelessWidget {
                     ),
                     const SizedBox(width: 4),
                     Text(
-                      duration,
+                      movie.duration,
                       style: const TextStyle(
                           fontFamily: 'Mulish',
                           fontSize: 16,

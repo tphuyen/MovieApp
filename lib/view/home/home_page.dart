@@ -52,11 +52,7 @@ class MovieHomePage extends StatelessWidget {
                   itemCount: movies.length,
                   itemBuilder: (context, index) {
                     final movie = movies[index];
-                    return MoviePoster(
-                      imageUrl: movie['imageUrl'],
-                      title: movie['title'],
-                      rating: movie['rating'],
-                    );
+                    return MoviePoster(movie: movie);
                   },
                 ),
               ),
@@ -70,13 +66,7 @@ class MovieHomePage extends StatelessWidget {
                 // Number of movies
                 itemBuilder: (context, index) {
                   final movie = movies[index];
-                  return MovieItem(
-                    imageUrl: movie['imageUrl'],
-                    title: movie['title'],
-                    genre: movie['genre'],
-                    duration: movie['duration'],
-                    rating: movie['rating'],
-                  ); // Replace with MovieItem widget
+                  return MovieItem(movie: movie);
                 },
               ),
             ],
