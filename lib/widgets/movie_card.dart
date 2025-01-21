@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../gen/fonts.gen.dart';
-
 class MoviePoster extends StatelessWidget {
   final String imageUrl;
   final String title;
@@ -19,7 +17,7 @@ class MoviePoster extends StatelessWidget {
     return Container(
       width: 150,
       height: 270,
-      padding: const EdgeInsets.fromLTRB(8,0,7,0),
+      margin: const EdgeInsets.only(right: 16),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
       ),
@@ -41,8 +39,7 @@ class MoviePoster extends StatelessWidget {
           Text(
             title,
             style: const TextStyle(
-              fontFamily: FontFamily.mulish,
-              fontSize: 16,
+              fontFamily: 'Mulish', fontSize: 16,
               fontWeight: FontWeight.w700,
             ),
           ),
@@ -58,10 +55,11 @@ class MoviePoster extends StatelessWidget {
               Text(
                 '$rating/10 IMDb',
                 style: const TextStyle(
-                    fontFamily: FontFamily.mulish,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.grey),
+                  fontFamily: 'Mulish',
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.grey
+                ),
               ),
             ],
           ),

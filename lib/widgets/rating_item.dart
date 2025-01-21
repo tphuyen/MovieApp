@@ -9,7 +9,7 @@ class RatingWidget extends StatelessWidget {
     super.key,
     required this.rating,
     this.iconSize = 16,
-    this.textStyle = const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+    this.textStyle,
   });
 
   @override
@@ -17,14 +17,14 @@ class RatingWidget extends StatelessWidget {
     return Row(
       children: [
         Icon(
-          Icons.star,
-          color: Colors.amber,
+          Icons.star, // Icon star cố định
+          color: Colors.amber, // Màu vàng
           size: iconSize,
         ),
-        const SizedBox(width: 4),
+        const SizedBox(width: 4), // Khoảng cách giữa icon và text
         Text(
-          '$rating/10 IMDb',
-          style: textStyle,
+          '$rating/10 IMDb', // Điểm đánh giá hiển thị
+          style: textStyle ?? const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
         ),
       ],
     );
