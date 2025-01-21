@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../../gen/assets.gen.dart';
+import '../../../gen/fonts.gen.dart';
+
 class MovieItem extends StatelessWidget {
   final String imageUrl;
   final String title;
@@ -16,10 +19,10 @@ class MovieItem extends StatelessWidget {
     required this.duration,
     super.key,
   });
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
@@ -43,7 +46,7 @@ class MovieItem extends StatelessWidget {
                 Text(
                   title,
                   style: const TextStyle(
-                    fontFamily: 'Mulish',
+                    fontFamily: FontFamily.mulish,
                     fontSize: 20,
                     fontWeight: FontWeight.w700,
                   ),
@@ -51,15 +54,16 @@ class MovieItem extends StatelessWidget {
                 const SizedBox(height: 6),
                 Row(
                   children: [
-                    SvgPicture.asset('assets/icons/Star.svg', width: 16, height: 16),
+                    SvgPicture.asset(Assets.icons.star,
+                        width: 16, height: 16),
                     const SizedBox(width: 4),
                     Text(
                       '$rating/10 IMDb',
                       style: const TextStyle(
-                          fontFamily: 'Mulish', fontSize: 14,
+                          fontFamily: FontFamily.mulish,
+                          fontSize: 14,
                           fontWeight: FontWeight.w600,
-                          color: Colors.grey
-                      ),
+                          color: Colors.grey),
                     ),
                   ],
                 ),
@@ -69,7 +73,8 @@ class MovieItem extends StatelessWidget {
                   spacing: 8,
                   children: genre.map((g) {
                     return Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12, vertical: 4),
                       decoration: ShapeDecoration(
                         color: const Color(0xFFDBE3FF),
                         shape: RoundedRectangleBorder(
@@ -80,7 +85,8 @@ class MovieItem extends StatelessWidget {
                         g.toUpperCase(),
                         style: const TextStyle(
                           color: Color(0xFF87A3E8),
-                          fontFamily: 'Mulish', fontSize: 10,
+                          fontFamily: FontFamily.mulish,
+                          fontSize: 10,
                           fontWeight: FontWeight.w700,
                           letterSpacing: 0.16,
                         ),
@@ -93,7 +99,7 @@ class MovieItem extends StatelessWidget {
                 Row(
                   children: [
                     SvgPicture.asset(
-                      'assets/icons/clock.svg',
+                      Assets.icons.clock,
                       width: 16,
                       height: 16,
                     ),
@@ -101,10 +107,10 @@ class MovieItem extends StatelessWidget {
                     Text(
                       duration,
                       style: const TextStyle(
-                          fontFamily: 'Mulish', fontSize: 16,
+                          fontFamily: 'Mulish',
+                          fontSize: 16,
                           fontWeight: FontWeight.w600,
-                          color: Colors.black87
-                      ),
+                          color: Colors.black87),
                     ),
                   ],
                 ),
