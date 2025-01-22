@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:movie_app/view/home/widget/movie_card.dart';
-import 'package:movie_app/view/home/widget/movie_item.dart';
 import 'package:movie_app/view/home/widget/section_header_item.dart';
 
-import '../../data/mock/mock_movie_data.dart';
-import '../../gen/assets.gen.dart';
-import '../../gen/fonts.gen.dart';
-import '../../model/movie.dart';
+import 'package:movie_app/gen/assets.gen.dart';
+import 'package:movie_app/gen/fonts.gen.dart';
+import 'package:movie_app/model/movie.dart';
+
+import 'package:movie_app/view/detail/cast_card.dart';
 
 class MovieDetailPage extends StatelessWidget {
   final Movie movie;
@@ -21,91 +20,83 @@ class MovieDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnnotatedRegion<SystemUiOverlayStyle>(
-        value: SystemUiOverlayStyle.light, // Màu của thanh trạng thái đổi thành trắng
-        child: Scaffold(
-        backgroundColor: Colors.white,
-        body: Stack(
-          children: <Widget>[
-            Positioned(
-              left: 0,
-              top: 0,
-              child: Image.asset(
-                Assets.images.filmBgTrailer.path,
-                width: MediaQuery.of(context).size.width,
-                height: 320,
-                fit: BoxFit.cover,
-              ),
-            ),
-            Positioned(
-              left: 0,
-              top: 0,
-              child: Opacity(
-                opacity: 0.25,
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: 320,
-                  decoration: const BoxDecoration(color: Color(0xFF110E47)),
-                ),
-              ),
-            ),
-            Positioned(
-              left: 16,
-              top: 30,
-              right: 16,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      value: SystemUiOverlayStyle.light,
+      child: Scaffold(
+        body: Column(
+          children: [
+            Expanded(
+              flex: 3,
+              child: Stack(
                 children: [
-                  IconButton(
-                    icon: SvgPicture.asset(Assets.icons.back,
-                        width: 30, height: 30),
-                    color: Colors.white,
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
+                  Image.asset(
+                    movie.filmBgTrailer,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
                   ),
-                  // const SizedBox(width: 10),
-                  IconButton(
-                    icon: SvgPicture.asset(Assets.icons.menu,
-                        width: 20, height: 20),
-                    color: Colors.white,
-                    onPressed: () {},
+                  Opacity(
+                    opacity: 0.25,
+                    child: Container(
+                      width: double.infinity,
+                      height: 320,
+                      decoration: const BoxDecoration(color: Color(0xFF110E47)),
+                    ),
                   ),
+                  Positioned(
+                    left: 16,
+                    top: 30,
+                    right: 16,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        IconButton(
+                          icon: SvgPicture.asset(Assets.icons.back,
+                              width: 30, height: 30),
+                          color: Colors.white,
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                        ),
+                        IconButton(
+                          icon: SvgPicture.asset(Assets.icons.menu,
+                              width: 20, height: 20),
+                          color: Colors.white,
+                          onPressed: () {},
+                        ),
+                      ],
+                    )
+                  ),
+                  Center(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                          icon: SvgPicture.asset(
+                            Assets.icons.playVid,
+                            width: 40,
+                            height: 40,
+                          ),
+                          onPressed: () {},
+                        ),
+                        const SizedBox(height: 5),
+                        const Text(
+                          'Play Trailer',
+                          style: TextStyle(
+                            fontFamily: FontFamily.mulish,
+                            fontSize: 16,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
                 ],
               ),
             ),
-            Positioned(
-              top: 140,
-              left: MediaQuery.of(context).size.width / 2 - 30,
-              child: Column(
-                children: [
-                  IconButton(
-                    icon: SvgPicture.asset(
-                      Assets.icons.playVid,
-                      width: 40,
-                      height: 40,
-                    ),
-                    onPressed: () {},
-                  ),
-                  const SizedBox(height: 5),
-                  const Text(
-                    'Play Trailer',
-                    style: TextStyle(
-                      fontFamily: FontFamily.mulish,
-                      fontSize: 16,
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            // Thông tin chi tiết
-            Positioned(
-              top: 270,
-              left: 0,
-              right: 0,
+            Expanded(
+              flex: 7,
               child: Container(
-                padding: const EdgeInsets.all(22),
+                padding: const EdgeInsets.all(16),
                 decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.vertical(
@@ -136,6 +127,7 @@ class MovieDetailPage extends StatelessWidget {
                         ),
                       ],
                     ),
+                    const SizedBox(height: 5),
                     Row(
                       children: [
                         SvgPicture.asset(Assets.icons.star, width: 16, height: 16),
@@ -150,10 +142,10 @@ class MovieDetailPage extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 12),
+                    const SizedBox(height: 14),
                     Wrap(
                       spacing: 8,
-                      children: movie.genre.map((g) {
+                      children: movie.genre.map((genre) {
                         return Container(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 12, vertical: 4),
@@ -164,7 +156,7 @@ class MovieDetailPage extends StatelessWidget {
                             ),
                           ),
                           child: Text(
-                            g.toUpperCase(),
+                            genre.toUpperCase(),
                             style: const TextStyle(
                               color: Color(0xFF87A3E8),
                               fontFamily: FontFamily.mulish,
@@ -178,30 +170,15 @@ class MovieDetailPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 18),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Column(
                           children: [
                             const Text('Length', style: TextStyle(fontFamily: 'Mulish',
-                              fontSize: 16, color: Colors.grey)),
+                                fontSize: 16, color: Colors.grey)),
                             Text(
                               movie.duration,
                               style: const TextStyle(
-                                fontFamily: 'Mulish',
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.black87
-                              ),
-                            ),
-                          ],
-                        ),
-                        const Column(
-                          children: [
-                            Text('Language', style: TextStyle(fontFamily: 'Mulish',
-                                fontSize: 16, color: Colors.grey)),
-                            Text(
-                              'English',
-                              style: TextStyle(
                                   fontFamily: 'Mulish',
                                   fontSize: 16,
                                   fontWeight: FontWeight.w600,
@@ -210,13 +187,28 @@ class MovieDetailPage extends StatelessWidget {
                             ),
                           ],
                         ),
-                        const Column(
+                        Column(
                           children: [
-                            Text('Rating', style: TextStyle(fontFamily: 'Mulish',
+                            const Text('Language', style: TextStyle(fontFamily: 'Mulish',
                                 fontSize: 16, color: Colors.grey)),
                             Text(
-                              'PG-13',
-                              style: TextStyle(
+                              movie.language,
+                              style: const TextStyle(
+                                  fontFamily: 'Mulish',
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.black87
+                              ),
+                            ),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            const Text('Age', style: TextStyle(fontFamily: 'Mulish',
+                                fontSize: 16, color: Colors.grey)),
+                            Text(
+                              movie.age,
+                              style: const TextStyle(
                                   fontFamily: 'Mulish',
                                   fontSize: 16,
                                   fontWeight: FontWeight.w600,
@@ -228,15 +220,38 @@ class MovieDetailPage extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 22),
-                    const SectionHeader(title: 'Description', onSeeMore: null),
-                    const SizedBox(height: 22),
+                    const SectionHeader(title: 'Description'),
+                    const SizedBox(height: 10),
+                    Text(
+                      movie.description,
+                      style: const TextStyle(
+                        fontFamily: 'Mulish',
+                        fontSize: 17,
+                        fontWeight: FontWeight.normal,
+                        color: Colors.black54,
+                        height: 1.5,
+                      ),
+                    ),
+                    const SizedBox(height: 16),
                     SectionHeader(title: 'Cast', onSeeMore: () {}),
+                    const SizedBox(height: 10),
+                    SizedBox(
+                      height: 150,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: movie.cast.length,
+                        itemBuilder: (context, index) {
+                          final castMember = movie.cast[index];
+                          return CastCard(castMember: castMember);
+                        },
+                      ),
+                    ),
                   ],
                 ),
               ),
-            ),
+            )
           ],
-        ),
+        )
       ),
     );
   }

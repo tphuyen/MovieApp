@@ -100,9 +100,25 @@ class $AssetsImagesGen {
   /// File path: assets/images/act8.png
   AssetGenImage get act8 => const AssetGenImage('assets/images/act8.png');
 
-  /// File path: assets/images/film_bg_trailer.png
-  AssetGenImage get filmBgTrailer =>
-      const AssetGenImage('assets/images/film_bg_trailer.png');
+  /// File path: assets/images/film_bg_trailer_2.png
+  AssetGenImage get filmBgTrailer2 =>
+      const AssetGenImage('assets/images/film_bg_trailer_2.png');
+
+  /// File path: assets/images/film_bg_trailer_3.jpg
+  AssetGenImage get filmBgTrailer3 =>
+      const AssetGenImage('assets/images/film_bg_trailer_3.jpg');
+
+  /// File path: assets/images/film_bg_trailer_4.jpg
+  AssetGenImage get filmBgTrailer4 =>
+      const AssetGenImage('assets/images/film_bg_trailer_4.jpg');
+
+  /// File path: assets/images/film_bg_trailer_5.jpg
+  AssetGenImage get filmBgTrailer5 =>
+      const AssetGenImage('assets/images/film_bg_trailer_5.jpg');
+
+  /// File path: assets/images/film_bg_trailer_6.jpg
+  AssetGenImage get filmBgTrailer6 =>
+      const AssetGenImage('assets/images/film_bg_trailer_6.jpg');
 
   /// File path: assets/images/post1.png
   AssetGenImage get post1 => const AssetGenImage('assets/images/post1.png');
@@ -140,7 +156,11 @@ class $AssetsImagesGen {
         act6,
         act7,
         act8,
-        filmBgTrailer,
+        filmBgTrailer2,
+        filmBgTrailer3,
+        filmBgTrailer4,
+        filmBgTrailer5,
+        filmBgTrailer6,
         post1,
         post2,
         post2Blur,

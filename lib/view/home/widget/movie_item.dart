@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../gen/assets.gen.dart';
-import '../../../gen/fonts.gen.dart';
-import '../../../model/movie.dart';
-import '../../detail/movie_detail_page.dart';
+import 'package:movie_app/gen/assets.gen.dart';
+import 'package:movie_app/gen/fonts.gen.dart';
+import 'package:movie_app/model/movie.dart';
+import 'package:movie_app/view/detail/movie_detail_page.dart';
 
 class MovieItem extends StatelessWidget {
   final Movie movie;
@@ -84,7 +84,7 @@ class MovieItem extends StatelessWidget {
                 //genre gọi & design
                 Wrap(
                   spacing: 8,
-                  children: movie.genre.map((g) {
+                  children: movie.genre.map((genre) {
                     return Container(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 12, vertical: 4),
@@ -95,7 +95,7 @@ class MovieItem extends StatelessWidget {
                         ),
                       ),
                       child: Text(
-                        g.toUpperCase(),
+                        genre.toUpperCase(),
                         style: const TextStyle(
                           color: Color(0xFF87A3E8),
                           fontFamily: FontFamily.mulish,

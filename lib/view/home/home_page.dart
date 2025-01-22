@@ -4,9 +4,9 @@ import 'package:movie_app/view/home/widget/movie_card.dart';
 import 'package:movie_app/view/home/widget/movie_item.dart';
 import 'package:movie_app/view/home/widget/section_header_item.dart';
 
-import '../../data/mock/mock_movie_data.dart';
-import '../../gen/assets.gen.dart';
-import '../../gen/fonts.gen.dart';
+import 'package:movie_app/data/mock/mock_movie_data.dart';
+import 'package:movie_app/gen/assets.gen.dart';
+import 'package:movie_app/gen/fonts.gen.dart';
 
 class MovieHomePage extends StatelessWidget {
   const MovieHomePage({super.key});
