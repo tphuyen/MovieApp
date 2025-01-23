@@ -11,10 +11,10 @@ class CastCard extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 100, // Adjust width to fit multiple cards in a row
-      padding: const EdgeInsets.symmetric(horizontal: 4), // Reduce padding
+      width: 100,
+      padding: const EdgeInsets.symmetric(horizontal: 4),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center, // Center the content
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(8),
