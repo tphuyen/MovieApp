@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../gen/fonts.gen.dart';
+import 'package:movie_app/gen/fonts.gen.dart';
 
 class SectionHeader extends StatelessWidget {
   final String title;
@@ -20,19 +20,20 @@ class SectionHeader extends StatelessWidget {
               fontSize: 20,
               fontWeight: FontWeight.w800),
         ),
-        TextButton(
-          onPressed: onSeeMore,
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
-            decoration: const ShapeDecoration(
-                shape: StadiumBorder(
-              side: BorderSide(color: Colors.grey, width: 1),
-            )),
-            child: const Text('See more',
-                style: TextStyle(
-                    color: Colors.grey, fontFamily: FontFamily.mulish, fontSize: 12)),
+        if (onSeeMore != null)
+          TextButton(
+            onPressed: onSeeMore,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+              decoration: const ShapeDecoration(
+                  shape: StadiumBorder(
+                    side: BorderSide(color: Colors.grey, width: 1),
+                  )),
+              child: const Text('See more',
+                  style: TextStyle(
+                      color: Colors.grey, fontFamily: FontFamily.mulish, fontSize: 12)),
+            ),
           ),
-        ),
       ],
     );
   }

@@ -4,9 +4,9 @@ import 'package:movie_app/view/home/widget/movie_card.dart';
 import 'package:movie_app/view/home/widget/movie_item.dart';
 import 'package:movie_app/view/home/widget/section_header_item.dart';
 
-import '../../data/mock/mock_movie_data.dart';
-import '../../gen/assets.gen.dart';
-import '../../gen/fonts.gen.dart';
+import 'package:movie_app/data/mock/mock_movie_data.dart';
+import 'package:movie_app/gen/assets.gen.dart';
+import 'package:movie_app/gen/fonts.gen.dart';
 
 class MovieHomePage extends StatelessWidget {
   const MovieHomePage({super.key});
@@ -52,11 +52,7 @@ class MovieHomePage extends StatelessWidget {
                   itemCount: movies.length,
                   itemBuilder: (context, index) {
                     final movie = movies[index];
-                    return MoviePoster(
-                      imageUrl: movie['imageUrl'],
-                      title: movie['title'],
-                      rating: movie['rating'],
-                    );
+                    return MoviePoster(movie: movie);
                   },
                 ),
               ),
@@ -70,13 +66,7 @@ class MovieHomePage extends StatelessWidget {
                 // Number of movies
                 itemBuilder: (context, index) {
                   final movie = movies[index];
-                  return MovieItem(
-                    imageUrl: movie['imageUrl'],
-                    title: movie['title'],
-                    genre: movie['genre'],
-                    duration: movie['duration'],
-                    rating: movie['rating'],
-                  ); // Replace with MovieItem widget
+                  return MovieItem(movie: movie);
                 },
               ),
             ],
