@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/home_page.dart';
-import 'package:movie_app/model/save_movie.dart';
+import 'package:movie_app/viewmodel/save_movie.dart';
 import 'package:movie_app/view/save/save_page.dart';
 import 'package:provider/provider.dart';
 
 void main() {
   runApp(
     ChangeNotifierProvider(
-      create: (context) => SavedMovies(),
+      create: (context) => SavedMovieProvider(),
       child: const MyApp(),
     )
   );

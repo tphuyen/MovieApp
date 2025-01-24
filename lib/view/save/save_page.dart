@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
-import 'package:movie_app/model/movie.dart';
-import 'package:movie_app/model/save_movie.dart';
+import 'package:movie_app/viewmodel/save_movie.dart';
 
 import 'package:movie_app/gen/fonts.gen.dart';
 
 import 'package:movie_app/gen/assets.gen.dart';
 import 'package:movie_app/view/detail/movie_detail_page.dart';
+
+import 'package:movie_app/model/movie.dart';
 
 class SavedPage extends StatelessWidget {
   const SavedPage({super.key});
@@ -30,10 +31,9 @@ class SavedPage extends StatelessWidget {
         centerTitle: true,
       ),
       backgroundColor: Colors.white,
-      body: Consumer<SavedMovies>(
-        builder: (context, savedMoviesProvider, child) {
-          final savedMovies = savedMoviesProvider.savedMovies;
-
+      body: Selector<SavedMovieProvider, List<Movie>>(
+        selector: (_, provider) => provider.savedMovies,
+        builder: (context, savedMovies, child) {
           if (savedMovies.isEmpty) {
             return const Center(
               child: Text(
@@ -132,7 +132,7 @@ class SavedPage extends StatelessWidget {
                               ),
                               TextButton(
                                 onPressed: () {
-                                  savedMoviesProvider.toggleSave(movie);
+                                  context.read<SavedMovieProvider>().toggleSave(movie);
                                   Navigator.of(context).pop();
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
@@ -152,12 +152,6 @@ class SavedPage extends StatelessWidget {
                           );
                         },
                       );
-                      // savedMoviesProvider.toggleSave(movie);
-                      // ScaffoldMessenger.of(context).showSnackBar(
-                      //   SnackBar(
-                      //     content: Text('${movie.title} removed from saved!'),
-                      //   ),
-                      // );
                     },
                   ),
                 ),

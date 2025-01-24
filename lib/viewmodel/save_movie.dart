@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:movie_app/model/movie.dart';
 
-class SavedMovies with ChangeNotifier {
+class SavedMovieProvider with ChangeNotifier {
   final List<Movie> _savedMovies = [];
 
   List<Movie> get savedMovies => _savedMovies;
@@ -13,8 +13,10 @@ class SavedMovies with ChangeNotifier {
   void toggleSave(Movie movie) {
     if (isSaved(movie)) {
       _savedMovies.remove(movie);
+      print('Movie removed: ${movie.title}');
     } else {
       _savedMovies.add(movie);
+      print('Movie added: ${movie.title}');
     }
     notifyListeners();
   }
