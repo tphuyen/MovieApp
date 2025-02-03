@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:movie_app/view/home/home_page.dart';
+import 'package:movie_app/home_page.dart';
+import 'package:movie_app/viewmodel/save_movie.dart';
+import 'package:movie_app/view/save/save_page.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => SavedMovieProvider(),
+      child: const MyApp(),
+    )
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -10,9 +18,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: MovieHomePage(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const MovieHomePage(),
+        '/saved': (context) => const SavedPage(),
+      },
     );
   }
 }
