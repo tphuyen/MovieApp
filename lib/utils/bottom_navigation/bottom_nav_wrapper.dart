@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:movie_app/view/movies/movie_page.dart';
 import 'package:movie_app/gen/assets.gen.dart';
-import 'package:movie_app/gen/fonts.gen.dart';
+import 'package:movie_app/view/movie_page.dart';
+import 'package:movie_app/view/save_page.dart';
+import 'package:movie_app/view/ticket_page.dart';
 
-import 'package:movie_app/view/ticket/ticket_page.dart';
-import 'package:movie_app/view/save/save_page.dart';
-
-class MovieHomePage extends StatefulWidget {
-  const MovieHomePage({super.key});
+class BottomNavWrapper extends StatefulWidget {
+  const BottomNavWrapper({super.key});
 
   @override
-  State<MovieHomePage> createState() => _MovieHomePageState();
+  State<BottomNavWrapper> createState() => _BottomNavWrapperState();
 }
 
-class _MovieHomePageState extends State<MovieHomePage> {
+class _BottomNavWrapperState extends State<BottomNavWrapper> {
   int _selectedIndex = 0;
 
   final List<Widget> _pages = [

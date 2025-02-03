@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:movie_app/gen/assets.gen.dart';
 import 'package:movie_app/gen/fonts.gen.dart';
 import 'package:movie_app/model/movie.dart';
-import 'package:movie_app/view/detail/movie_detail_page.dart';
+import 'package:movie_app/view/movie_detail_page.dart';
 
 class MovieItem extends StatelessWidget {
   final Movie movie;

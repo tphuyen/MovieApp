@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:movie_app/home_page.dart';
+import 'package:movie_app/utils/bottom_navigation/bottom_nav_wrapper.dart';
+import 'package:movie_app/utils/routes/routes.dart';
+import 'package:movie_app/utils/routes/routes_names.dart';
 import 'package:movie_app/viewmodel/save_movie.dart';
-import 'package:movie_app/view/save/save_page.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -18,13 +19,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
+      title: 'Movie App',
       debugShowCheckedModeBanner: false,
-      initialRoute: '/',
-      routes: {
-        '/': (context) => const MovieHomePage(),
-        '/saved': (context) => const SavedPage(),
-      },
+      initialRoute: RoutesNames.movies,
+      onGenerateRoute: AppRoutes.generateRoute,
+      home: BottomNavWrapper(),
     );
   }
 }

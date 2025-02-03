@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:movie_app/view/movies/widget/section_header_item.dart';
+import 'package:movie_app/res/widgets/section_header_item.dart';
 
 import 'package:movie_app/gen/assets.gen.dart';
 import 'package:movie_app/gen/fonts.gen.dart';
 import 'package:movie_app/model/movie.dart';
 
-import 'package:movie_app/view/detail/widget/cast_card.dart';
+import 'package:movie_app/res/widgets/cast_card.dart';
 
 import 'package:movie_app/viewmodel/save_movie.dart';
 import 'package:provider/provider.dart';
