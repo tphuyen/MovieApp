@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:movie_app/view/movies/widget/movie_card.dart';
-import 'package:movie_app/view/movies/widget/movie_item.dart';
-import 'package:movie_app/view/movies/widget/section_header_item.dart';
+import 'package:movie_app/res/widgets/movie_card.dart';
+import 'package:movie_app/res/widgets/movie_item.dart';
+import 'package:movie_app/res/widgets/section_header_item.dart';
 
 import 'package:movie_app/data/mock/mock_movie_data.dart';
 

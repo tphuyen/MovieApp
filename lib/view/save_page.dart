@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
-import 'package:movie_app/viewmodel/save_movie.dart';
+import 'package:movie_app/viewmodel/save_movie_view_model.dart';
 
 import 'package:movie_app/gen/fonts.gen.dart';
 
 import 'package:movie_app/gen/assets.gen.dart';
-import 'package:movie_app/view/detail/movie_detail_page.dart';
+import 'package:movie_app/view/movie_detail_page.dart';
 
 import 'package:movie_app/model/movie.dart';
 
