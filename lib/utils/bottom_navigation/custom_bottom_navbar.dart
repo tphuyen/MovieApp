@@ -11,11 +11,16 @@ class CustomBottomNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Consumer<HomeProvider>(
-          builder: (context, homeProvider, _) => homeProvider.currentPage),
-      bottomNavigationBar: Consumer<HomeProvider>(
-          builder: (context, homeProvider, _) => BottomNavigationBar(
-                currentIndex: homeProvider.selectedIndex,
+      body: Selector<HomeProvider, Widget>(
+        selector: (_, homeProvider) => homeProvider.currentPage,
+        builder: (context, currentPage, _) => currentPage,
+      ),
+      bottomNavigationBar: Selector<HomeProvider, int>(
+          selector: (_, homeProvider) => homeProvider.selectedIndex,
+
+          builder: (context, selectedIndex, _) =>
+              BottomNavigationBar(
+                currentIndex: selectedIndex,
                 showSelectedLabels: false,
                 showUnselectedLabels: false,
                 backgroundColor: Colors.white,
@@ -24,7 +29,7 @@ class CustomBottomNavBar extends StatelessWidget {
                     icon: SvgPicture.asset(
                       Assets.icons.bookmark,
                       color:
-                          homeProvider.selectedIndex == 0 ? Colors.amber : null,
+                      selectedIndex == 0 ? Colors.amber : null,
                     ),
                     label: 'Movies',
                   ),
@@ -32,7 +37,7 @@ class CustomBottomNavBar extends StatelessWidget {
                     icon: SvgPicture.asset(
                       Assets.icons.ticket,
                       color:
-                          homeProvider.selectedIndex == 1 ? Colors.amber : null,
+                      selectedIndex == 1 ? Colors.amber : null,
                     ),
                     label: 'Tickets',
                   ),
@@ -40,13 +45,13 @@ class CustomBottomNavBar extends StatelessWidget {
                     icon: SvgPicture.asset(
                       Assets.icons.saveUnclick,
                       color:
-                          homeProvider.selectedIndex == 2 ? Colors.amber : null,
+                      selectedIndex == 2 ? Colors.amber : null,
                     ),
                     label: 'Save',
                   ),
                 ],
                 onTap: (index) {
-                  homeProvider.updateIndex(index);
+                  context.read<HomeProvider>().updateIndex(index);
                 },
               )),
     );
