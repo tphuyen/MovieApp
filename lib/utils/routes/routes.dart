@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/utils/routes/routes_names.dart';
-import 'package:movie_app/view/movie_page.dart';
-import 'package:movie_app/view/save_page.dart';
-import 'package:movie_app/view/ticket_page.dart';
+import 'package:movie_app/view/movie_detail_page.dart';
+
+import 'package:movie_app/model/movie.dart';
 
 
 class AppRoutes {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case RoutesNames.movies:
-        return MaterialPageRoute(builder: (_) => const MoviesPage());
-      case RoutesNames.tickets:
-        return MaterialPageRoute(builder: (_) => const TicketsPage());
-      case RoutesNames.saved:
-        return MaterialPageRoute(builder: (_) => const SavedPage());
+      case RoutesNames.movieDetail:
+        final movie = settings.arguments as Movie;
+        return MaterialPageRoute(
+          builder: (_) => MovieDetailPage(movie: movie),
+        );
       default:
         return MaterialPageRoute(
           builder: (_) => const Scaffold(

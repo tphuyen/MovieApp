@@ -9,7 +9,7 @@ import 'package:movie_app/model/movie.dart';
 
 import 'package:movie_app/res/widgets/cast_card.dart';
 
-import 'package:movie_app/viewmodel/save_movie.dart';
+import 'package:movie_app/viewmodel/save_movie_view_model.dart';
 import 'package:provider/provider.dart';
 
 class MovieDetailPage extends StatelessWidget {
