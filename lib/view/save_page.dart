@@ -58,7 +58,7 @@ class SavedPage extends StatelessWidget {
                 ),
                 child: ListTile(
                   leading: Image.asset(
-                    movie.filmBgTrailer,
+                    movie.backdropPath,
                     width: 50,
                     height: 50,
                     fit: BoxFit.cover,
@@ -87,7 +87,7 @@ class SavedPage extends StatelessWidget {
                           width: 16, height: 16),
                       const SizedBox(width: 4),
                       Text(
-                        '${movie.rating}/10 IMDb',
+                        '${movie.voteAverage}/10 IMDb',
                         style: const TextStyle(
                             fontFamily: FontFamily.mulish,
                             fontSize: 14,

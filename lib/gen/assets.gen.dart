@@ -18,6 +18,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/Bookmark.svg
   String get bookmark => 'assets/icons/Bookmark.svg';
 
+  /// File path: assets/icons/Bookmark_selected.svg
+  String get bookmarkSelected => 'assets/icons/Bookmark_selected.svg';
+
   /// File path: assets/icons/Menu.svg
   String get menu => 'assets/icons/Menu.svg';
 
@@ -58,6 +61,7 @@ class $AssetsIconsGen {
   List<String> get values => [
         back,
         bookmark,
+        bookmarkSelected,
         menu,
         notif,
         path,

@@ -36,7 +36,7 @@ class MoviePoster extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8),
               child: Image.asset(
-                movie.imageUrl,
+                movie.posterPath,
                 width: 150,
                 height: 190,
                 fit: BoxFit.cover,
@@ -71,7 +71,7 @@ class MoviePoster extends StatelessWidget {
               ),
               const SizedBox(width: 4),
               Text(
-                '${movie.rating}/10 IMDb',
+                '${movie.voteAverage}/10 IMDb',
                 style: const TextStyle(
                     fontFamily: FontFamily.mulish,
                     fontSize: 14,
