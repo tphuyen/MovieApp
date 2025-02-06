@@ -34,7 +34,7 @@ class ApiService {
             if (movie.runtime == null) {
               print('Movie runtime is null');
             }
-            if (movie.cast == null || movie.cast.isEmpty) {
+            if (movie.cast == null || movie.cast!.isEmpty) {
               print('Movie cast is null or empty');
             }
 
@@ -103,7 +103,7 @@ class ApiService {
   Future<Movie> getMovieCredits(Movie movie) async {
     try {
       final response = await dio.request(
-        endpoint: '${Constants.movieDetail}${movie.id}',
+        endpoint: '${Constants.movieDetail}${movie.id}/credits',
         method: DioMethod.get,
       );
 
@@ -112,24 +112,13 @@ class ApiService {
 
         if (jsonData['cast'] != null) {
           movie.cast = (jsonData['cast'] as List).map((castJson) {
-            CastMember castMember = CastMember.fromJson(castJson);
-
-            if (castMember.name == null) {
-              print('Cast member name is null');
-            }
-            if (castMember.character == null) {
-              print('Cast member character is null');
-            }
-            if (castMember.profilePath == null) {
-              print('Cast member profilePath is null');
-            }
-
-            return castMember;
+            return CastMember.fromJson(castJson);
           }).toList();
         } else {
-          print('No cast data available for movie: ${movie.title}');
           movie.cast = [];
         }
+      } else {
+        throw Exception('Failed to load movie cast');
       }
 
       return movie;
@@ -138,4 +127,5 @@ class ApiService {
       throw Exception('Failed to load movie cast: $e');
     }
   }
+
 }

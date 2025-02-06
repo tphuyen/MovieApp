@@ -57,11 +57,15 @@ class SavedPage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: ListTile(
-                  leading: Image.asset(
-                    movie.backdropPath,
-                    width: 50,
-                    height: 50,
+                  leading: Image.network(
+                    'https://image.tmdb.org/t/p/w500${movie.posterPath}',
+                    width: double.infinity,
                     fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) => Container(
+                      width: double.infinity,
+                      height: 320,
+                      color: Colors.grey[300],
+                    ),
                   ),
                   title: InkWell(
                     onTap: () {

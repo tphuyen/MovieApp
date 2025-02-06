@@ -35,8 +35,8 @@ class MoviePoster extends StatelessWidget {
             },
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8),
-              child: Image.asset(
-                movie.posterPath,
+              child: Image.network(
+                'https://image.tmdb.org/t/p/w500${movie.posterPath}',
                 width: 150,
                 height: 190,
                 fit: BoxFit.cover,
@@ -57,7 +57,7 @@ class MoviePoster extends StatelessWidget {
               movie.title,
               style: const TextStyle(
                 fontFamily: FontFamily.mulish,
-                fontSize: 16,
+                fontSize: 15,
                 fontWeight: FontWeight.w700,
               ),
             ),

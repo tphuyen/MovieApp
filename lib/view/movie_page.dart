@@ -92,27 +92,27 @@ class _MoviesPageState extends State<MoviesPage> {
                 child: _isLoadingNowPlaying
                     ? const Center(child: CircularProgressIndicator())
                     : ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: _nowPlayingMovies.length,
-                  itemBuilder: (context, index) {
-                    final movie = _nowPlayingMovies[index];
-                    return MoviePoster(movie: movie);
-                  },
-                ),
+                        scrollDirection: Axis.horizontal,
+                        itemCount: _nowPlayingMovies.length,
+                        itemBuilder: (context, index) {
+                          final movie = _nowPlayingMovies[index];
+                          return MoviePoster(movie: movie);
+                        },
+                      ),
               ),
               const SizedBox(height: 6),
               SectionHeader(title: 'Popular', onSeeMore: () {}),
               _isLoadingPopular
                   ? const Center(child: CircularProgressIndicator())
                   : ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: _popularMovies.length,
-                itemBuilder: (context, index) {
-                  final movie = _popularMovies[index];
-                  return MovieItem(movie: movie);
-                },
-              ),
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: _popularMovies.length,
+                      itemBuilder: (context, index) {
+                        final movie = _popularMovies[index];
+                        return MovieItem(movie: movie);
+                      },
+                    ),
             ],
           ),
         ),

@@ -14,6 +14,7 @@ class CastCard extends StatelessWidget{
   Widget build(BuildContext context) {
     return Container(
       width: 100,
+      height: 200,
       padding: const EdgeInsets.symmetric(horizontal: 4),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -57,7 +58,7 @@ class CastCard extends StatelessWidget{
             castMember.name,
             style: const TextStyle(
               fontFamily: FontFamily.mulish,
-              fontSize: 13,
+              fontSize: 12,
               fontWeight: FontWeight.w700,
             ),
           ),

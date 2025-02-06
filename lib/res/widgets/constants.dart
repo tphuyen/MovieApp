@@ -7,4 +7,5 @@ class Constants {
   static const popularMovies = "/movie/popular";
   static const nowPlayingMovies = "/movie/now_playing";
   static const movieDetail = "/movie/";
+  static const movieCredits = "/movie/";
 }

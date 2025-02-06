@@ -20,13 +20,13 @@ class Movie {
   final String posterPath;
 
   @JsonKey(name: 'backdrop_path')
-  final String backdropPath;
+  final String? backdropPath;
 
   @JsonKey(name: 'media_type')
   final String? mediaType;
 
   @JsonKey(name: 'adult')
-  final bool adult;
+  final bool? adult;
 
   @JsonKey(name: 'original_language')
   final String originalLanguage;
@@ -35,25 +35,25 @@ class Movie {
   final List<int> genreIds;
 
   @JsonKey(name: 'popularity')
-  final double popularity;
+  final double? popularity;
 
   @JsonKey(name: 'release_date')
   final String releaseDate;
 
   @JsonKey(name: 'video')
-  final bool video;
+  final bool? video;
 
   @JsonKey(name: 'vote_average')
   final double voteAverage;
 
   @JsonKey(name: 'vote_count')
-  final int voteCount;
+  final int? voteCount;
 
   @JsonKey(name: 'runtime')
   int? runtime;
 
   @JsonKey(name: 'cast')
-  List<CastMember> cast;
+  List<CastMember>? cast;
 
   Movie({
     required this.id,
@@ -61,18 +61,18 @@ class Movie {
     required this.originalTitle,
     required this.overview,
     required this.posterPath,
-    required this.backdropPath,
-    required this.mediaType,
-    required this.adult,
+    this.backdropPath,
+    this.mediaType,
+    this.adult,
     required this.originalLanguage,
     required this.genreIds,
-    required this.popularity,
+    this.popularity,
     required this.releaseDate,
-    required this.video,
+    this.video,
     required this.voteAverage,
-    required this.voteCount,
+    this.voteCount,
     this.runtime,
-    required this.cast
+    this.cast
   });
 
   factory Movie.fromJson(Map<String, dynamic> json) {
