@@ -34,6 +34,7 @@ class SavedPage extends StatelessWidget {
       body: Selector<SavedMovieProvider, List<Movie>>(
         selector: (_, provider) => provider.savedMovies,
         builder: (context, savedMovies, child) {
+          print('dongnd1 save movie: ${savedMovies}');
           if (savedMovies.isEmpty) {
             return const Center(
               child: Text(
@@ -59,7 +60,7 @@ class SavedPage extends StatelessWidget {
                 child: ListTile(
                   leading: Image.network(
                     'https://image.tmdb.org/t/p/w500${movie.posterPath}',
-                    width: double.infinity,
+                    width: 50,
                     fit: BoxFit.cover,
                     errorBuilder: (context, error, stackTrace) => Container(
                       width: double.infinity,
