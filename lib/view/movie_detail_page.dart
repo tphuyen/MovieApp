@@ -13,53 +13,30 @@ import 'package:movie_app/data/remote/api/api_service.dart';
 import 'package:movie_app/data/remote/api/api_client.dart';
 import 'package:movie_app/res/widgets/section_header_item.dart';
 
-class MovieDetailPage extends StatefulWidget {
+import 'package:movie_app/viewmodel/movie_view_model.dart';
+
+class MovieDetailPage extends StatelessWidget {
   final Movie movie;
 
   const MovieDetailPage({super.key, required this.movie});
 
   @override
-  _MovieDetailPageState createState() => _MovieDetailPageState();
-}
-
-class _MovieDetailPageState extends State<MovieDetailPage> {
-  late Future<Movie> movieFuture;
-  final ApiService _apiService = ApiService(ApiClient());
-
-  @override
-  void initState() {
-    super.initState();
-    movieFuture = fetchMovieDetails(widget.movie);
-  }
-
-  Future<Movie> fetchMovieDetails(Movie movie) async {
-    try {
-      final movieWithRuntime = await _apiService.getMovieDetail(movie);
-      final movieWithCast = await _apiService.getMovieCredits(movieWithRuntime);
-      return movieWithCast;
-    } catch (e) {
-      print('Error fetching movie details: $e');
-      rethrow;
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
+    Future.microtask(() =>
+        Provider.of<MovieProvider>(context, listen: false)
+            .fetchMovieDetails(movie.id));
     return AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.light,
-        child: Scaffold(
-            body: FutureBuilder<Movie>(
-          future: movieFuture,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
+        child: Scaffold(body: Consumer<MovieProvider>(
+          builder: (context, viewModel, child) {
+            if (viewModel.isLoadingDetails) {
               return const Center(child: CircularProgressIndicator());
-            } else if (snapshot.hasError) {
-              return Center(child: Text("Error: ${snapshot.error}"));
-            } else if (!snapshot.hasData) {
+            } else if (viewModel.movieDetails == null) {
               return const Center(child: Text("No data available"));
             }
 
-            final movie = snapshot.data!;
+            final movie = viewModel.movieDetails!;
+
             return Column(
               children: [
                 Expanded(
@@ -70,6 +47,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                           ? Image.network(
                               'https://image.tmdb.org/t/p/w500${movie.backdropPath}',
                               width: double.infinity,
+                              height: 280,
                               fit: BoxFit.cover,
                               errorBuilder: (context, error, stackTrace) =>
                                   Container(
@@ -175,20 +153,18 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                                   child: Align(
                                     alignment: Alignment.centerRight,
                                     child: IconButton(
-                                      icon: SvgPicture.asset(
-                                        Assets.icons.saveClick,
-                                        color: context
-                                                .watch<SavedMovieProvider>()
-                                                .isSaved(movie)
-                                            ? Colors.amber
-                                            : Colors.grey,
-                                        width: 30,
-                                        height: 30,
+                                      icon: Consumer<SavedMovieProvider>(
+                                        builder: (context, savedMovies, child) {
+                                          return SvgPicture.asset(
+                                            Assets.icons.saveClick,
+                                            color: savedMovies.isSaved(movie) ? Colors.amber : Colors.grey,
+                                            width: 30,
+                                            height: 30,
+                                          );
+                                        },
                                       ),
                                       onPressed: () {
-                                        context
-                                            .read<SavedMovieProvider>()
-                                            .toggleSave(movie);
+                                        context.read<SavedMovieProvider>().toggleSave(movie);
                                       },
                                     ),
                                   ))
@@ -211,7 +187,33 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                               ),
                             ],
                           ),
-                          const SizedBox(height: 14),
+                          const SizedBox(height: 5),
+                          Wrap(
+                            spacing: 8,
+                            children: movie.genreNames.map((genre) {
+                              return Container(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 12, vertical: 4),
+                                decoration: ShapeDecoration(
+                                  color: const Color(0xFFDBE3FF),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(100),
+                                  ),
+                                ),
+                                child: Text(
+                                  genre.toUpperCase(),
+                                  style: const TextStyle(
+                                    color: Color(0xFF87A3E8),
+                                    fontFamily: FontFamily.mulish,
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.w700,
+                                    letterSpacing: 0.16,
+                                  ),
+                                ),
+                              );
+                            }).toList(),
+                          ),
+                          const SizedBox(height: 5),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
@@ -290,7 +292,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                           SectionHeader(title: 'Cast', onSeeMore: () {}),
                           const SizedBox(height: 10),
                           SizedBox(
-                            height: 150,
+                            height: 200,
                             child: ListView.builder(
                               scrollDirection: Axis.horizontal,
                               itemCount: movie.cast?.length ?? 0,

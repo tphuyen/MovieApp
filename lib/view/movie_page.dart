@@ -3,57 +3,20 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:movie_app/res/widgets/movie_card.dart';
 import 'package:movie_app/res/widgets/movie_item.dart';
 import 'package:movie_app/res/widgets/section_header_item.dart';
-import 'package:movie_app/data/remote/api/api_service.dart';
-import 'package:movie_app/model/movie.dart';
 import 'package:movie_app/gen/assets.gen.dart';
 import 'package:movie_app/gen/fonts.gen.dart';
 
-import 'package:movie_app/data/remote/api/api_client.dart';
+import 'package:movie_app/viewmodel/movie_view_model.dart';
+import 'package:provider/provider.dart';
 
-class MoviesPage extends StatefulWidget {
+class MoviesPage extends StatelessWidget {
   const MoviesPage({super.key});
 
   @override
-  _MoviesPageState createState() => _MoviesPageState();
-}
-
-class _MoviesPageState extends State<MoviesPage> {
-  final ApiService _apiService = ApiService(ApiClient());
-
-  List<Movie> _nowPlayingMovies = [];
-  List<Movie> _popularMovies = [];
-
-  bool _isLoadingNowPlaying = true;
-  bool _isLoadingPopular = true;
-
-  @override
-  void initState() {
-    super.initState();
-    _fetchMovies();
-  }
-
-  Future<void> _fetchMovies() async {
-    try {
-      final nowPlayingMovies = await _apiService.getPlayingMovies();
-      final popularMovies = await _apiService.getPopularMovies();
-
-      setState(() {
-        _nowPlayingMovies = nowPlayingMovies;
-        _popularMovies = popularMovies;
-        _isLoadingNowPlaying = false;
-        _isLoadingPopular = false;
-      });
-    } catch (e) {
-      print('Error: $e');
-      setState(() {
-        _isLoadingNowPlaying = false;
-        _isLoadingPopular = false;
-      });
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final movieViewModel = Provider.of<MovieProvider>(context);
+
+    Future.microtask(() => movieViewModel.fetchMovies());
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -89,27 +52,27 @@ class _MoviesPageState extends State<MoviesPage> {
               SectionHeader(title: 'Now Showing', onSeeMore: () {}),
               SizedBox(
                 height: 270,
-                child: _isLoadingNowPlaying
+                child: movieViewModel.isLoadingNowPlaying
                     ? const Center(child: CircularProgressIndicator())
                     : ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        itemCount: _nowPlayingMovies.length,
+                        itemCount: movieViewModel.nowPlayingMovies.length,
                         itemBuilder: (context, index) {
-                          final movie = _nowPlayingMovies[index];
+                          final movie = movieViewModel.nowPlayingMovies[index];
                           return MoviePoster(movie: movie);
                         },
                       ),
               ),
               const SizedBox(height: 6),
               SectionHeader(title: 'Popular', onSeeMore: () {}),
-              _isLoadingPopular
+              movieViewModel.isLoadingPopular
                   ? const Center(child: CircularProgressIndicator())
                   : ListView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      itemCount: _popularMovies.length,
+                      itemCount: movieViewModel.popularMovies.length,
                       itemBuilder: (context, index) {
-                        final movie = _popularMovies[index];
+                        final movie = movieViewModel.popularMovies[index];
                         return MovieItem(movie: movie);
                       },
                     ),

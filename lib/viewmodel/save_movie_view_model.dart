@@ -1,21 +1,23 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
 import 'package:movie_app/model/movie.dart';
 
-class SavedMovieProvider with ChangeNotifier {
+class SavedMovieProvider extends ChangeNotifier {
   List<Movie> _savedMovies = [];
 
   List<Movie> get savedMovies => _savedMovies;
 
-  bool isSaved(Movie movie) => _savedMovies.contains(movie);
+  bool isSaved(Movie movie) {
+    return _savedMovies.any((savedMovie) => savedMovie.id == movie.id);
+  }
 
   void toggleSave(Movie movie) {
+    List<Movie> updatedMovies = List.from(_savedMovies);
     if (isSaved(movie)) {
-      _savedMovies = List.from(_savedMovies)..remove(movie);
+      updatedMovies.removeWhere((savedMovie) => savedMovie.id == movie.id);
     } else {
-      _savedMovies = List.from(_savedMovies)..add(movie);
+      updatedMovies.add(movie);
     }
+    _savedMovies = updatedMovies;
     notifyListeners();
   }
 }

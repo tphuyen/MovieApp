@@ -81,9 +81,9 @@ class MovieItem extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 6),
-                //genre gọi & design
                 Wrap(
                   spacing: 8,
+                  runSpacing: 5,
                   children: movie.genreNames.map((genre) {
                     return Container(
                       padding: const EdgeInsets.symmetric(

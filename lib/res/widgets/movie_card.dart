@@ -55,6 +55,8 @@ class MoviePoster extends StatelessWidget {
             },
             child: Text(
               movie.title,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
               style: const TextStyle(
                 fontFamily: FontFamily.mulish,
                 fontSize: 15,
