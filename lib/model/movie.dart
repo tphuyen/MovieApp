@@ -1,93 +1,69 @@
-import 'package:json_annotation/json_annotation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:movie_app/model/cast.dart';
-import 'package:movie_app/utils/utils.dart';
+
+part 'movie.freezed.dart';
 part 'movie.g.dart';
 
-@JsonSerializable()
-class Movie {
+@freezed
+class Movie with _$Movie {
+  factory Movie({
+    required int id,
+    @Default('Unknown Title') String title,
+    @Default('Unknown') String originalTitle,
+    @Default('No overview available') String overview,
+    @Default('') String posterPath,
+    String? backdropPath,
+    @Default('movie') String mediaType,
+    @Default(false) bool adult,
+    @Default('en') String originalLanguage,
+    @Default([]) List<int> genreIds,
+    @Default(0.0) double popularity,
+    @Default('Unknown') String releaseDate,
+    @Default(false) bool video,
+    @Default(0.0) double voteAverage,
+    @Default(0) int voteCount,
+    @Default(0) int runtime,
+    @Default([]) List<CastMember> cast,
+  }) = _Movie;
+
+  factory Movie.fromJson(Map<String, dynamic> json) => _$MovieFromJson(json);
+}
+
+extension MovieX on Movie {
+  List<MovieGenre> get genreNames => genreIds.map((id) => MovieGenre.fromId(id)).toList();
+}
+
+enum MovieGenre {
+  action(28, "Action"),
+  adventure(12, "Adventure"),
+  animation(16, "Animation"),
+  comedy(35, "Comedy"),
+  crime(80, "Crime"),
+  documentary(99, "Documentary"),
+  drama(18, "Drama"),
+  family(10751, "Family"),
+  fantasy(14, "Fantasy"),
+  history(36, "History"),
+  horror(27, "Horror"),
+  music(10402, "Music"),
+  mystery(9648, "Mystery"),
+  romance(10749, "Romance"),
+  scienceFiction(878, "Science Fiction"),
+  tvMovie(10770, "TV Movie"),
+  thriller(53, "Thriller"),
+  war(10752, "War"),
+  western(37, "Western"),
+  unknown(-1, "Unknown");
+
   final int id;
+  final String name;
 
-  @JsonKey(name: 'title')
-  final String title;
+  const MovieGenre(this.id, this.name);
 
-  @JsonKey(name: 'original_title')
-  final String originalTitle;
-
-  @JsonKey(name: 'overview')
-  final String overview;
-
-  @JsonKey(name: 'poster_path')
-  final String posterPath;
-
-  @JsonKey(name: 'backdrop_path')
-  final String? backdropPath;
-
-  @JsonKey(name: 'media_type')
-  final String? mediaType;
-
-  @JsonKey(name: 'adult')
-  final bool? adult;
-
-  @JsonKey(name: 'original_language')
-  final String originalLanguage;
-
-  @JsonKey(name: 'genre_ids')
-  final List<int> genreIds;
-
-  @JsonKey(name: 'popularity')
-  final double? popularity;
-
-  @JsonKey(name: 'release_date')
-  final String releaseDate;
-
-  @JsonKey(name: 'video')
-  final bool? video;
-
-  @JsonKey(name: 'vote_average')
-  final double voteAverage;
-
-  @JsonKey(name: 'vote_count')
-  final int? voteCount;
-
-  @JsonKey(name: 'runtime')
-  int? runtime;
-
-  @JsonKey(name: 'cast')
-  List<CastMember>? cast;
-
-  Movie({
-    required this.id,
-    required this.title,
-    required this.originalTitle,
-    required this.overview,
-    required this.posterPath,
-    this.backdropPath,
-    this.mediaType,
-    this.adult,
-    required this.originalLanguage,
-    required this.genreIds,
-    this.popularity,
-    required this.releaseDate,
-    this.video,
-    required this.voteAverage,
-    this.voteCount,
-    this.runtime,
-    this.cast
-  });
-
-  factory Movie.fromJson(Map<String, dynamic> json) {
-    if (json['title'] == null) {
-      print('Error: title is null');
-    }
-    if (json['poster_path'] == null) {
-      print('Error: poster_path is null');
-    }
-
-    return _$MovieFromJson(json);
+  static MovieGenre fromId(int id) {
+    return MovieGenre.values.firstWhere(
+          (genre) => genre.id == id,
+      orElse: () => MovieGenre.unknown,
+    );
   }
-
-
-  Map<String, dynamic> toJson() => _$MovieToJson(this);
-
-  List<String> get genreNames => mapGenreIdsToNames(genreIds);
 }

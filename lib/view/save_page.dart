@@ -34,7 +34,6 @@ class SavedPage extends StatelessWidget {
       body: Selector<SavedMovieProvider, List<Movie>>(
         selector: (_, provider) => provider.savedMovies,
         builder: (context, savedMovies, child) {
-          print('dongnd1 save movie: ${savedMovies}');
           if (savedMovies.isEmpty) {
             return const Center(
               child: Text(

@@ -2,46 +2,41 @@ import 'package:movie_app/data/remote/api/api_service.dart';
 import 'package:movie_app/model/movie.dart';
 import 'package:movie_app/model/cast.dart';
 
-enum MovieCategory { popular, nowPlaying }
 class MovieRepository {
   final ApiService apiService;
 
   MovieRepository(this.apiService);
 
-  Future<List<Movie>> fetchMovies({required MovieCategory category, int page = 1}) async {
-    final fetchMap = {
-      MovieCategory.popular: apiService.getPopularMovies,
-      MovieCategory.nowPlaying: apiService.getPlayingMovies,
-    };
-
+  Future<List<Movie>> fetchPopularMovies({int page = 1}) async {
     try {
-      final fetchMethod = fetchMap[category];
-      if (fetchMethod != null) {
-        return await fetchMethod(page: page);
-      }
-      throw Exception("Unsupported MovieCategory: $category");
+      return await apiService.getPopularMovies(page: page);
     } catch (e) {
-      throw Exception('Failed to fetch movies: $e');
+      throw Exception('Failed to fetch popular movies: $e');
     }
   }
 
-
-  Future<Movie> fetchMovieDetails(int movieId) async {
+  Future<List<Movie>> fetchNowPlayingMovies({int page = 1}) async {
     try {
-      final results = await Future.wait([
-        apiService.getMovieDetail(movieId),
-        apiService.getMovieCredits(movieId),
-      ]);
-
-      Movie updatedMovie = results[0] as Movie;
-      List<CastMember> cast = results[1] as List<CastMember>;
-
-      updatedMovie.cast = cast;
-
-      return updatedMovie;
+      return await apiService.getPlayingMovies(page: page);
     } catch (e) {
-      throw Exception('Failed to fetch movie details: $e');
+      throw Exception('Failed to fetch now playing movies: $e');
     }
   }
 
+  Future<Movie> fetchMovieDetail(int movieId) async {
+    try {
+      return await apiService.getMovieDetail(movieId);
+    } catch (e) {
+      throw Exception('Failed to fetch movie detail: $e');
+    }
+  }
+
+  Future<List<CastMember>> fetchMovieCredits(int movieId) async {
+    try {
+      return await apiService.getMovieCredits(movieId);
+    } catch (e) {
+      throw Exception('Failed to fetch movie credits: $e');
+    }
+  }
 }
+

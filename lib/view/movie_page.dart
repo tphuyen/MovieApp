@@ -5,7 +5,6 @@ import 'package:movie_app/res/widgets/movie_item.dart';
 import 'package:movie_app/res/widgets/section_header_item.dart';
 import 'package:movie_app/gen/assets.gen.dart';
 import 'package:movie_app/gen/fonts.gen.dart';
-
 import 'package:movie_app/viewmodel/movie_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -14,9 +13,6 @@ class MoviesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final movieViewModel = Provider.of<MovieProvider>(context);
-
-    Future.microtask(() => movieViewModel.fetchMovies());
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -43,42 +39,62 @@ class MoviesPage extends StatelessWidget {
         ],
       ),
       backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SectionHeader(title: 'Now Showing', onSeeMore: () {}),
               SizedBox(
                 height: 270,
-                child: movieViewModel.isLoadingNowPlaying
-                    ? const Center(child: CircularProgressIndicator())
-                    : ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: movieViewModel.nowPlayingMovies.length,
-                        itemBuilder: (context, index) {
-                          final movie = movieViewModel.nowPlayingMovies[index];
-                          return MoviePoster(movie: movie);
-                        },
-                      ),
+                child: Selector<MovieProvider, bool>(
+                  selector: (_, provider) => provider.isLoading,
+                  builder: (context, isLoading, _) {
+                    if (isLoading) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                    return Consumer<MovieProvider>(
+                      builder: (context, movieProvider, _) {
+                        return ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: movieProvider.nowPlayingMovies.length,
+                          itemBuilder: (context, index) {
+                            final movie = movieProvider.nowPlayingMovies[index];
+                            return MoviePoster(movie: movie);
+                          },
+                        );
+                      },
+                    );
+                  },
+                ),
               ),
               const SizedBox(height: 6),
               SectionHeader(title: 'Popular', onSeeMore: () {}),
-              movieViewModel.isLoadingPopular
-                  ? const Center(child: CircularProgressIndicator())
-                  : ListView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: movieViewModel.popularMovies.length,
-                      itemBuilder: (context, index) {
-                        final movie = movieViewModel.popularMovies[index];
-                        return MovieItem(movie: movie);
-                      },
-                    ),
+              Selector<MovieProvider, bool>(
+                selector: (_, provider) => provider.isLoading,
+                builder: (context, isLoading, _) {
+                  if (isLoading) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  return Consumer<MovieProvider>(
+                    builder: (context, movieProvider, _) {
+                      return ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: movieProvider.popularMovies.length,
+                        itemBuilder: (context, index) {
+                          final movie = movieProvider.popularMovies[index];
+                          return MovieItem(movie: movie);
+                        },
+                      );
+                    },
+                  );
+                },
+              ),
             ],
           ),
-        ),
+        )
       ),
     );
   }

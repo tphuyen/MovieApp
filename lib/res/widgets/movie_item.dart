@@ -84,7 +84,7 @@ class MovieItem extends StatelessWidget {
                 Wrap(
                   spacing: 8,
                   runSpacing: 5,
-                  children: movie.genreNames.map((genre) {
+                  children: (movie.genreNames ?? []).map((genre) {
                     return Container(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 12, vertical: 4),
@@ -95,7 +95,7 @@ class MovieItem extends StatelessWidget {
                         ),
                       ),
                       child: Text(
-                        genre.toUpperCase(),
+                        genre.name.toUpperCase(),
                         style: const TextStyle(
                           color: Color(0xFF87A3E8),
                           fontFamily: FontFamily.mulish,

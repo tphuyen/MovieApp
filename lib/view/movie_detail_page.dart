@@ -22,9 +22,10 @@ class MovieDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Future.microtask(() =>
-        Provider.of<MovieProvider>(context, listen: false)
-            .fetchMovieDetails(movie.id));
+    final movieProvider = Provider.of<MovieProvider>(context, listen: false);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      movieProvider.fetchMovieDetails(movie.id);
+    });
     return AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.light,
         child: Scaffold(body: Consumer<MovieProvider>(
@@ -190,7 +191,7 @@ class MovieDetailPage extends StatelessWidget {
                           const SizedBox(height: 5),
                           Wrap(
                             spacing: 8,
-                            children: movie.genreNames.map((genre) {
+                            children: (movie.genreNames ?? []).map((genre) {
                               return Container(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 12, vertical: 4),
@@ -201,7 +202,7 @@ class MovieDetailPage extends StatelessWidget {
                                   ),
                                 ),
                                 child: Text(
-                                  genre.toUpperCase(),
+                                  genre.name.toUpperCase(),
                                   style: const TextStyle(
                                     color: Color(0xFF87A3E8),
                                     fontFamily: FontFamily.mulish,
