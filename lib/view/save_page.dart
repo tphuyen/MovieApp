@@ -57,11 +57,15 @@ class SavedPage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: ListTile(
-                  leading: Image.asset(
-                    movie.filmBgTrailer,
+                  leading: Image.network(
+                    'https://image.tmdb.org/t/p/w500${movie.posterPath}',
                     width: 50,
-                    height: 50,
                     fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) => Container(
+                      width: double.infinity,
+                      height: 320,
+                      color: Colors.grey[300],
+                    ),
                   ),
                   title: InkWell(
                     onTap: () {
@@ -87,7 +91,7 @@ class SavedPage extends StatelessWidget {
                           width: 16, height: 16),
                       const SizedBox(width: 4),
                       Text(
-                        '${movie.rating}/10 IMDb',
+                        '${movie.voteAverage}/10 IMDb',
                         style: const TextStyle(
                             fontFamily: FontFamily.mulish,
                             fontSize: 14,

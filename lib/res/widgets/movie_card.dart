@@ -35,12 +35,15 @@ class MoviePoster extends StatelessWidget {
             },
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8),
-              child: Image.asset(
-                movie.imageUrl,
+              child: Image.network(
+                'https://image.tmdb.org/t/p/w500${movie.posterPath}',
                 width: 150,
                 height: 190,
                 fit: BoxFit.cover,
               ),
+                // movie.posterPath.isNotEmpty
+                //     ? Image.network('https://image.tmdb.org/t/p/w500${movie.posterPath}')
+                //     : Container(width: 150, height: 190, color: Colors.grey)
             ),
           ),
           const SizedBox(height: 5),
@@ -55,9 +58,11 @@ class MoviePoster extends StatelessWidget {
             },
             child: Text(
               movie.title,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
               style: const TextStyle(
                 fontFamily: FontFamily.mulish,
-                fontSize: 16,
+                fontSize: 15,
                 fontWeight: FontWeight.w700,
               ),
             ),
@@ -71,7 +76,7 @@ class MoviePoster extends StatelessWidget {
               ),
               const SizedBox(width: 4),
               Text(
-                '${movie.rating}/10 IMDb',
+                '${movie.voteAverage}/10 IMDb',
                 style: const TextStyle(
                     fontFamily: FontFamily.mulish,
                     fontSize: 14,

@@ -34,8 +34,8 @@ class MovieItem extends StatelessWidget {
             },
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8),
-              child: Image.asset(
-                movie.imageUrl,
+              child: Image.network(
+                'https://image.tmdb.org/t/p/w500${movie.posterPath}',
                 width: 100,
                 height: 150,
                 fit: BoxFit.cover,
@@ -71,7 +71,7 @@ class MovieItem extends StatelessWidget {
                     SvgPicture.asset(Assets.icons.star, width: 16, height: 16),
                     const SizedBox(width: 4),
                     Text(
-                      '${movie.rating}/10 IMDb',
+                      '${movie.voteAverage}/10 IMDb',
                       style: const TextStyle(
                           fontFamily: FontFamily.mulish,
                           fontSize: 14,
@@ -81,10 +81,10 @@ class MovieItem extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 6),
-                //genre gọi & design
                 Wrap(
                   spacing: 8,
-                  children: movie.genre.map((genre) {
+                  runSpacing: 5,
+                  children: (movie.genreNames ?? []).map((genre) {
                     return Container(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 12, vertical: 4),
@@ -95,7 +95,7 @@ class MovieItem extends StatelessWidget {
                         ),
                       ),
                       child: Text(
-                        genre.toUpperCase(),
+                        genre.name.toUpperCase(),
                         style: const TextStyle(
                           color: Color(0xFF87A3E8),
                           fontFamily: FontFamily.mulish,
@@ -118,7 +118,7 @@ class MovieItem extends StatelessWidget {
                     ),
                     const SizedBox(width: 4),
                     Text(
-                      movie.duration,
+                      movie.runtime != null ? '${movie.runtime} min' : 'N/A',
                       style: const TextStyle(
                           fontFamily: 'Mulish',
                           fontSize: 16,
