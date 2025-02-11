@@ -39,47 +39,35 @@ class MoviesPage extends StatelessWidget {
         ],
       ),
       backgroundColor: Colors.white,
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SectionHeader(title: 'Now Showing', onSeeMore: () {}),
-              SizedBox(
-                height: 270,
-                child: Selector<MovieProvider, bool>(
-                  selector: (_, provider) => provider.isLoading,
-                  builder: (context, isLoading, _) {
-                    if (isLoading) {
-                      return const Center(child: CircularProgressIndicator());
-                    }
-                    return Consumer<MovieProvider>(
-                      builder: (context, movieProvider, _) {
-                        return ListView.builder(
+      body: Selector<MovieViewModel, bool>(
+        selector: (_, provider) => provider.isLoading,
+        builder: (context, isLoading, _) {
+          if (isLoading) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          return Consumer<MovieViewModel>(
+            builder: (context, movieProvider, _) {
+              return Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SectionHeader(title: 'Now Showing', onSeeMore: () {}),
+                      SizedBox(
+                        height: 270,
+                        child: ListView.builder(
                           scrollDirection: Axis.horizontal,
                           itemCount: movieProvider.nowPlayingMovies.length,
                           itemBuilder: (context, index) {
                             final movie = movieProvider.nowPlayingMovies[index];
                             return MoviePoster(movie: movie);
                           },
-                        );
-                      },
-                    );
-                  },
-                ),
-              ),
-              const SizedBox(height: 6),
-              SectionHeader(title: 'Popular', onSeeMore: () {}),
-              Selector<MovieProvider, bool>(
-                selector: (_, provider) => provider.isLoading,
-                builder: (context, isLoading, _) {
-                  if (isLoading) {
-                    return const Center(child: CircularProgressIndicator());
-                  }
-                  return Consumer<MovieProvider>(
-                    builder: (context, movieProvider, _) {
-                      return ListView.builder(
+                        ),
+                      ),
+                      const SizedBox(height: 6),
+                      SectionHeader(title: 'Popular', onSeeMore: () {}),
+                      ListView.builder(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         itemCount: movieProvider.popularMovies.length,
@@ -87,14 +75,14 @@ class MoviesPage extends StatelessWidget {
                           final movie = movieProvider.popularMovies[index];
                           return MovieItem(movie: movie);
                         },
-                      );
-                    },
-                  );
-                },
-              ),
-            ],
-          ),
-        )
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          );
+        },
       ),
     );
   }

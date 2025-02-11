@@ -22,15 +22,15 @@ class MovieDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final movieProvider = Provider.of<MovieProvider>(context, listen: false);
+    final movieProvider = Provider.of<MovieViewModel>(context, listen: false);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       movieProvider.fetchMovieDetails(movie.id);
     });
     return AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.light,
-        child: Scaffold(body: Consumer<MovieProvider>(
+        child: Scaffold(body: Consumer<MovieViewModel>(
           builder: (context, viewModel, child) {
-            if (viewModel.isLoadingDetails) {
+            if (viewModel.isLoading) {
               return const Center(child: CircularProgressIndicator());
             } else if (viewModel.movieDetails == null) {
               return const Center(child: Text("No data available"));
@@ -154,7 +154,7 @@ class MovieDetailPage extends StatelessWidget {
                                   child: Align(
                                     alignment: Alignment.centerRight,
                                     child: IconButton(
-                                      icon: Consumer<SavedMovieProvider>(
+                                      icon: Consumer<SavedMovieViewModel>(
                                         builder: (context, savedMovies, child) {
                                           return SvgPicture.asset(
                                             Assets.icons.saveClick,
@@ -165,7 +165,7 @@ class MovieDetailPage extends StatelessWidget {
                                         },
                                       ),
                                       onPressed: () {
-                                        context.read<SavedMovieProvider>().toggleSave(movie);
+                                        context.read<SavedMovieViewModel>().toggleSave(movie);
                                       },
                                     ),
                                   ))

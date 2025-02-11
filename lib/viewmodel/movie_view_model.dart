@@ -4,32 +4,26 @@ import 'package:movie_app/data/remote/api/api_client.dart';
 import 'package:movie_app/model/movie.dart';
 import 'package:movie_app/repository/movie_repository.dart';
 import 'package:movie_app/model/cast.dart';
+import 'package:movie_app/viewmodel/base_view_model.dart';
 
-class MovieProvider extends ChangeNotifier {
+class MovieViewModel extends BaseViewModel {
   final MovieRepository _movieRepository = MovieRepository(ApiService(ApiClient()));
 
   List<Movie> _nowPlayingMovies = [];
   List<Movie> _popularMovies = [];
-  bool _isLoading = true;
-  bool _isLoadingDetails = false;
-  String? _errorMessage;
   Movie? _movieDetails;
 
   List<Movie> get nowPlayingMovies => _nowPlayingMovies;
   List<Movie> get popularMovies => _popularMovies;
-  bool get isLoading => _isLoading;
-  bool get isLoadingDetails => _isLoadingDetails;
-  String? get errorMessage => _errorMessage;
   Movie? get movieDetails => _movieDetails;
 
-  MovieProvider() {
+  MovieViewModel() {
     fetchMovies();
   }
 
   Future<void> fetchMovies() async {
-    _isLoading = true;
-    _errorMessage = null;
-    notifyListeners();
+    setLoading(true);
+    setError(null);
 
     try {
       final results = await Future.wait([
@@ -39,17 +33,17 @@ class MovieProvider extends ChangeNotifier {
 
       _popularMovies = results[0];
       _nowPlayingMovies = results[1];
-      _isLoading = false;
     } catch (e) {
-      _errorMessage = "Error fetching movies: $e";
-      _isLoading = false;
+      setError("Error fetching movies: $e");
+    }finally{
+      setLoading(false);
     }
 
     notifyListeners();
   }
 
   Future<void> fetchMovieDetails(int movieId) async {
-    _isLoadingDetails = true;
+    setLoading(true);
     _movieDetails = null;
     notifyListeners();
 
@@ -69,9 +63,9 @@ class MovieProvider extends ChangeNotifier {
 
       _movieDetails = fetchedMovie.copyWith(cast: fetchedCast);
     } catch (e) {
-      _errorMessage = 'Failed to fetch full movie details: $e';
+      setError('Failed to fetch full movie details: $e');
     } finally {
-      _isLoadingDetails = false;
+      setLoading(false);
       notifyListeners();
     }
   }

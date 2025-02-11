@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movie_app/utils/bottom_navigation/custom_bottom_navbar.dart';
 import 'package:movie_app/utils/routes/routes.dart';
 import 'package:movie_app/utils/routes/routes_names.dart';
+import 'package:movie_app/viewmodel/base_view_model.dart';
 import 'package:movie_app/viewmodel/home_view_model.dart';
 import 'package:movie_app/viewmodel/movie_view_model.dart';
 import 'package:movie_app/viewmodel/save_movie_view_model.dart';
@@ -18,9 +19,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
         providers: [
-          ChangeNotifierProvider(create: (_) => HomeProvider()),
-          ChangeNotifierProvider(create: (context) => MovieProvider()),
-          ChangeNotifierProvider(create: (_) => SavedMovieProvider()),
+          ChangeNotifierProvider(create: (_) => BaseViewModel()),
+          ChangeNotifierProvider(create: (_) => HomeViewModel()),
+          ChangeNotifierProvider(create: (context) => MovieViewModel()),
+          ChangeNotifierProvider(create: (_) => SavedMovieViewModel()),
         ],
         child: const MaterialApp(
           title: 'Movie App',

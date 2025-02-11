@@ -31,7 +31,7 @@ class SavedPage extends StatelessWidget {
         centerTitle: true,
       ),
       backgroundColor: Colors.white,
-      body: Selector<SavedMovieProvider, List<Movie>>(
+      body: Selector<SavedMovieViewModel, List<Movie>>(
         selector: (_, provider) => provider.savedMovies,
         builder: (context, savedMovies, child) {
           if (savedMovies.isEmpty) {
@@ -136,7 +136,7 @@ class SavedPage extends StatelessWidget {
                               ),
                               TextButton(
                                 onPressed: () {
-                                  context.read<SavedMovieProvider>().toggleSave(movie);
+                                  context.read<SavedMovieViewModel>().toggleSave(movie);
                                   Navigator.of(context).pop();
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
