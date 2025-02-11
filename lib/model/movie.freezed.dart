@@ -21,21 +21,37 @@ Movie _$MovieFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Movie {
   int get id => throw _privateConstructorUsedError;
+  @JsonKey(name: 'title')
   String get title => throw _privateConstructorUsedError;
+  @JsonKey(name: 'original_title')
   String get originalTitle => throw _privateConstructorUsedError;
+  @JsonKey(name: 'overview')
   String get overview => throw _privateConstructorUsedError;
+  @JsonKey(name: 'poster_path')
   String get posterPath => throw _privateConstructorUsedError;
+  @JsonKey(name: 'backdrop_path')
   String? get backdropPath => throw _privateConstructorUsedError;
+  @JsonKey(name: 'media_type')
   String get mediaType => throw _privateConstructorUsedError;
+  @JsonKey(name: 'adult')
   bool get adult => throw _privateConstructorUsedError;
+  @JsonKey(name: 'original_language')
   String get originalLanguage => throw _privateConstructorUsedError;
+  @JsonKey(name: 'genre_ids')
   List<int> get genreIds => throw _privateConstructorUsedError;
+  @JsonKey(name: 'popularity')
   double get popularity => throw _privateConstructorUsedError;
+  @JsonKey(name: 'release_date')
   String get releaseDate => throw _privateConstructorUsedError;
+  @JsonKey(name: 'video')
   bool get video => throw _privateConstructorUsedError;
+  @JsonKey(name: 'vote_average')
   double get voteAverage => throw _privateConstructorUsedError;
+  @JsonKey(name: 'vote_count')
   int get voteCount => throw _privateConstructorUsedError;
+  @JsonKey(name: 'runtime')
   int get runtime => throw _privateConstructorUsedError;
+  @JsonKey(name: 'cast')
   List<CastMember> get cast => throw _privateConstructorUsedError;
 
   /// Serializes this Movie to a JSON map.
@@ -54,22 +70,22 @@ abstract class $MovieCopyWith<$Res> {
   @useResult
   $Res call(
       {int id,
-      String title,
-      String originalTitle,
-      String overview,
-      String posterPath,
-      String? backdropPath,
-      String mediaType,
-      bool adult,
-      String originalLanguage,
-      List<int> genreIds,
-      double popularity,
-      String releaseDate,
-      bool video,
-      double voteAverage,
-      int voteCount,
-      int runtime,
-      List<CastMember> cast});
+      @JsonKey(name: 'title') String title,
+      @JsonKey(name: 'original_title') String originalTitle,
+      @JsonKey(name: 'overview') String overview,
+      @JsonKey(name: 'poster_path') String posterPath,
+      @JsonKey(name: 'backdrop_path') String? backdropPath,
+      @JsonKey(name: 'media_type') String mediaType,
+      @JsonKey(name: 'adult') bool adult,
+      @JsonKey(name: 'original_language') String originalLanguage,
+      @JsonKey(name: 'genre_ids') List<int> genreIds,
+      @JsonKey(name: 'popularity') double popularity,
+      @JsonKey(name: 'release_date') String releaseDate,
+      @JsonKey(name: 'video') bool video,
+      @JsonKey(name: 'vote_average') double voteAverage,
+      @JsonKey(name: 'vote_count') int voteCount,
+      @JsonKey(name: 'runtime') int runtime,
+      @JsonKey(name: 'cast') List<CastMember> cast});
 }
 
 /// @nodoc
@@ -187,22 +203,22 @@ abstract class _$$MovieImplCopyWith<$Res> implements $MovieCopyWith<$Res> {
   @useResult
   $Res call(
       {int id,
-      String title,
-      String originalTitle,
-      String overview,
-      String posterPath,
-      String? backdropPath,
-      String mediaType,
-      bool adult,
-      String originalLanguage,
-      List<int> genreIds,
-      double popularity,
-      String releaseDate,
-      bool video,
-      double voteAverage,
-      int voteCount,
-      int runtime,
-      List<CastMember> cast});
+      @JsonKey(name: 'title') String title,
+      @JsonKey(name: 'original_title') String originalTitle,
+      @JsonKey(name: 'overview') String overview,
+      @JsonKey(name: 'poster_path') String posterPath,
+      @JsonKey(name: 'backdrop_path') String? backdropPath,
+      @JsonKey(name: 'media_type') String mediaType,
+      @JsonKey(name: 'adult') bool adult,
+      @JsonKey(name: 'original_language') String originalLanguage,
+      @JsonKey(name: 'genre_ids') List<int> genreIds,
+      @JsonKey(name: 'popularity') double popularity,
+      @JsonKey(name: 'release_date') String releaseDate,
+      @JsonKey(name: 'video') bool video,
+      @JsonKey(name: 'vote_average') double voteAverage,
+      @JsonKey(name: 'vote_count') int voteCount,
+      @JsonKey(name: 'runtime') int runtime,
+      @JsonKey(name: 'cast') List<CastMember> cast});
 }
 
 /// @nodoc
@@ -314,22 +330,22 @@ class __$$MovieImplCopyWithImpl<$Res>
 class _$MovieImpl implements _Movie {
   _$MovieImpl(
       {required this.id,
-      this.title = 'Unknown Title',
-      this.originalTitle = 'Unknown',
-      this.overview = 'No overview available',
-      this.posterPath = '',
-      this.backdropPath,
-      this.mediaType = 'movie',
-      this.adult = false,
-      this.originalLanguage = 'en',
-      final List<int> genreIds = const [],
-      this.popularity = 0.0,
-      this.releaseDate = 'Unknown',
-      this.video = false,
-      this.voteAverage = 0.0,
-      this.voteCount = 0,
-      this.runtime = 0,
-      final List<CastMember> cast = const []})
+      @JsonKey(name: 'title') this.title = 'Unknown Title',
+      @JsonKey(name: 'original_title') this.originalTitle = 'Unknown',
+      @JsonKey(name: 'overview') this.overview = 'No overview available',
+      @JsonKey(name: 'poster_path') this.posterPath = '',
+      @JsonKey(name: 'backdrop_path') this.backdropPath,
+      @JsonKey(name: 'media_type') this.mediaType = 'movie',
+      @JsonKey(name: 'adult') this.adult = false,
+      @JsonKey(name: 'original_language') this.originalLanguage = 'en',
+      @JsonKey(name: 'genre_ids') final List<int> genreIds = const [],
+      @JsonKey(name: 'popularity') this.popularity = 0.0,
+      @JsonKey(name: 'release_date') this.releaseDate = 'Unknown',
+      @JsonKey(name: 'video') this.video = false,
+      @JsonKey(name: 'vote_average') this.voteAverage = 0.0,
+      @JsonKey(name: 'vote_count') this.voteCount = 0,
+      @JsonKey(name: 'runtime') this.runtime = 0,
+      @JsonKey(name: 'cast') final List<CastMember> cast = const []})
       : _genreIds = genreIds,
         _cast = cast;
 
@@ -339,31 +355,32 @@ class _$MovieImpl implements _Movie {
   @override
   final int id;
   @override
-  @JsonKey()
+  @JsonKey(name: 'title')
   final String title;
   @override
-  @JsonKey()
+  @JsonKey(name: 'original_title')
   final String originalTitle;
   @override
-  @JsonKey()
+  @JsonKey(name: 'overview')
   final String overview;
   @override
-  @JsonKey()
+  @JsonKey(name: 'poster_path')
   final String posterPath;
   @override
+  @JsonKey(name: 'backdrop_path')
   final String? backdropPath;
   @override
-  @JsonKey()
+  @JsonKey(name: 'media_type')
   final String mediaType;
   @override
-  @JsonKey()
+  @JsonKey(name: 'adult')
   final bool adult;
   @override
-  @JsonKey()
+  @JsonKey(name: 'original_language')
   final String originalLanguage;
   final List<int> _genreIds;
   @override
-  @JsonKey()
+  @JsonKey(name: 'genre_ids')
   List<int> get genreIds {
     if (_genreIds is EqualUnmodifiableListView) return _genreIds;
     // ignore: implicit_dynamic_type
@@ -371,26 +388,26 @@ class _$MovieImpl implements _Movie {
   }
 
   @override
-  @JsonKey()
+  @JsonKey(name: 'popularity')
   final double popularity;
   @override
-  @JsonKey()
+  @JsonKey(name: 'release_date')
   final String releaseDate;
   @override
-  @JsonKey()
+  @JsonKey(name: 'video')
   final bool video;
   @override
-  @JsonKey()
+  @JsonKey(name: 'vote_average')
   final double voteAverage;
   @override
-  @JsonKey()
+  @JsonKey(name: 'vote_count')
   final int voteCount;
   @override
-  @JsonKey()
+  @JsonKey(name: 'runtime')
   final int runtime;
   final List<CastMember> _cast;
   @override
-  @JsonKey()
+  @JsonKey(name: 'cast')
   List<CastMember> get cast {
     if (_cast is EqualUnmodifiableListView) return _cast;
     // ignore: implicit_dynamic_type
@@ -477,58 +494,74 @@ class _$MovieImpl implements _Movie {
 abstract class _Movie implements Movie {
   factory _Movie(
       {required final int id,
-      final String title,
-      final String originalTitle,
-      final String overview,
-      final String posterPath,
-      final String? backdropPath,
-      final String mediaType,
-      final bool adult,
-      final String originalLanguage,
-      final List<int> genreIds,
-      final double popularity,
-      final String releaseDate,
-      final bool video,
-      final double voteAverage,
-      final int voteCount,
-      final int runtime,
-      final List<CastMember> cast}) = _$MovieImpl;
+      @JsonKey(name: 'title') final String title,
+      @JsonKey(name: 'original_title') final String originalTitle,
+      @JsonKey(name: 'overview') final String overview,
+      @JsonKey(name: 'poster_path') final String posterPath,
+      @JsonKey(name: 'backdrop_path') final String? backdropPath,
+      @JsonKey(name: 'media_type') final String mediaType,
+      @JsonKey(name: 'adult') final bool adult,
+      @JsonKey(name: 'original_language') final String originalLanguage,
+      @JsonKey(name: 'genre_ids') final List<int> genreIds,
+      @JsonKey(name: 'popularity') final double popularity,
+      @JsonKey(name: 'release_date') final String releaseDate,
+      @JsonKey(name: 'video') final bool video,
+      @JsonKey(name: 'vote_average') final double voteAverage,
+      @JsonKey(name: 'vote_count') final int voteCount,
+      @JsonKey(name: 'runtime') final int runtime,
+      @JsonKey(name: 'cast') final List<CastMember> cast}) = _$MovieImpl;
 
   factory _Movie.fromJson(Map<String, dynamic> json) = _$MovieImpl.fromJson;
 
   @override
   int get id;
   @override
+  @JsonKey(name: 'title')
   String get title;
   @override
+  @JsonKey(name: 'original_title')
   String get originalTitle;
   @override
+  @JsonKey(name: 'overview')
   String get overview;
   @override
+  @JsonKey(name: 'poster_path')
   String get posterPath;
   @override
+  @JsonKey(name: 'backdrop_path')
   String? get backdropPath;
   @override
+  @JsonKey(name: 'media_type')
   String get mediaType;
   @override
+  @JsonKey(name: 'adult')
   bool get adult;
   @override
+  @JsonKey(name: 'original_language')
   String get originalLanguage;
   @override
+  @JsonKey(name: 'genre_ids')
   List<int> get genreIds;
   @override
+  @JsonKey(name: 'popularity')
   double get popularity;
   @override
+  @JsonKey(name: 'release_date')
   String get releaseDate;
   @override
+  @JsonKey(name: 'video')
   bool get video;
   @override
+  @JsonKey(name: 'vote_average')
   double get voteAverage;
   @override
+  @JsonKey(name: 'vote_count')
   int get voteCount;
   @override
+  @JsonKey(name: 'runtime')
   int get runtime;
   @override
+  @JsonKey(name: 'cast')
   List<CastMember> get cast;
 
   /// Create a copy of Movie
