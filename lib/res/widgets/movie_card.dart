@@ -35,12 +35,10 @@ class MoviePoster extends StatelessWidget {
             },
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8),
-              child: Image.network(
-                'https://image.tmdb.org/t/p/w500${movie.posterPath}',
-                width: 150,
-                height: 190,
-                fit: BoxFit.cover,
-              ),
+              child: movie.posterPath.isNotEmpty
+                  ? Image.network('https://image.tmdb.org/t/p/w500${movie.posterPath}')
+                  : Container(width: 150, height: 190, color: Colors.grey)
+
             ),
           ),
           const SizedBox(height: 5),

@@ -34,12 +34,10 @@ class MovieItem extends StatelessWidget {
             },
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8),
-              child: Image.network(
-                'https://image.tmdb.org/t/p/w500${movie.posterPath}',
-                width: 100,
-                height: 150,
-                fit: BoxFit.cover,
-              ),
+              child: movie.posterPath.isNotEmpty
+                  ? Image.network('https://image.tmdb.org/t/p/w500${movie.posterPath}')
+                  : Container(width: 100, height: 150, color: Colors.grey),
+
             ),
           ),
           const SizedBox(width: 16),

@@ -59,8 +59,15 @@ class MovieProvider extends ChangeNotifier {
         _movieRepository.fetchMovieCredits(movieId),
       ]);
 
-      _movieDetails = results[0] as Movie;
-      _movieDetails = _movieDetails!.copyWith(cast: results[1] as List<CastMember>);
+      final fetchedMovie = results[0] as Movie?;
+
+      final fetchedCast = results[1] as List<CastMember>;
+
+      if (fetchedMovie == null) {
+        throw Exception("Movie details not found");
+      }
+
+      _movieDetails = fetchedMovie.copyWith(cast: fetchedCast);
     } catch (e) {
       _errorMessage = 'Failed to fetch full movie details: $e';
     } finally {
