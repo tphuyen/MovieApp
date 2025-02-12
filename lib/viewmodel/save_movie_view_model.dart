@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/model/movie.dart';
 
-class SavedMovieProvider extends ChangeNotifier {
+class SavedMovieViewModel extends ChangeNotifier {
   List<Movie> _savedMovies = [];
 
   List<Movie> get savedMovies => _savedMovies;
