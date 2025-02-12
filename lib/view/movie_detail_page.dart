@@ -33,7 +33,7 @@ class MovieDetailPage extends StatelessWidget {
             if (viewModel.isLoading) {
               return const Center(child: CircularProgressIndicator());
             } else if (viewModel.movieDetails == null) {
-              return const Center(child: Text("No data available"));
+              return const Center(child: Text("Try to connect internet again or this film is not Available"));
             }
 
             final movie = viewModel.movieDetails!;

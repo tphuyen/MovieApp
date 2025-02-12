@@ -10,51 +10,59 @@ import 'package:provider/provider.dart';
 class CustomBottomNavBar extends StatelessWidget {
   const CustomBottomNavBar({super.key});
 
+  static final List<Widget> pages = [
+    const MoviesPage(),
+    const TicketsPage(),
+    const SavedPage(),
+  ];
+
   @override
   Widget build(BuildContext context) {
-    final homeViewModel = context.watch<HomeViewModel>();
-
-    final List<Widget> pages = [
-      const MoviesPage(),
-      const TicketsPage(),
-      const SavedPage(),
-    ];
-
     return Scaffold(
       backgroundColor: Colors.white,
-      body: IndexedStack(
-        index: homeViewModel.selectedIndex,
-        children: pages,
+      body: Selector<HomeViewModel, int>(
+        selector: (_, homeViewModel) => homeViewModel.selectedIndex,
+        builder: (context, selectedIndex, child) {
+          return IndexedStack(
+            index: selectedIndex,
+            children: pages,
+          );
+        },
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: homeViewModel.selectedIndex,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        backgroundColor: Colors.white,
-        items: [
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              Assets.icons.bookmark,
-              color: homeViewModel.selectedIndex == 0 ? Colors.amber : null,
-            ),
-            label: 'Movies',
-          ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              Assets.icons.ticket,
-              color: homeViewModel.selectedIndex == 1 ? Colors.amber : null,
-            ),
-            label: 'Tickets',
-          ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              Assets.icons.saveUnclick,
-              color: homeViewModel.selectedIndex == 2 ? Colors.amber : null,
-            ),
-            label: 'Save',
-          ),
-        ],
-        onTap: (index) => homeViewModel.updateIndex(index),
+      bottomNavigationBar: Selector<HomeViewModel, int>(
+        selector: (_, homeViewModel) => homeViewModel.selectedIndex,
+        builder: (context, selectedIndex, child) {
+          return BottomNavigationBar(
+            currentIndex: selectedIndex,
+            showSelectedLabels: false,
+            showUnselectedLabels: false,
+            backgroundColor: Colors.white,
+            items: [
+              BottomNavigationBarItem(
+                icon: SvgPicture.asset(
+                  Assets.icons.bookmark,
+                  color: selectedIndex == 0 ? Colors.amber : null,
+                ),
+                label: 'Movies',
+              ),
+              BottomNavigationBarItem(
+                icon: SvgPicture.asset(
+                  Assets.icons.ticket,
+                  color: selectedIndex == 1 ? Colors.amber : null,
+                ),
+                label: 'Tickets',
+              ),
+              BottomNavigationBarItem(
+                icon: SvgPicture.asset(
+                  Assets.icons.saveUnclick,
+                  color: selectedIndex == 2 ? Colors.amber : null,
+                ),
+                label: 'Save',
+              ),
+            ],
+            onTap: (index) => context.read<HomeViewModel>().updateIndex(index),
+          );
+        },
       ),
     );
   }
