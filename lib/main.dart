@@ -8,16 +8,13 @@ import 'package:movie_app/viewmodel/movie_view_model.dart';
 import 'package:movie_app/viewmodel/save_movie_view_model.dart';
 import 'package:provider/provider.dart';
 
-void main() {
-  const String flavor = String.fromEnvironment('FLAVOR', defaultValue: 'dev');
+import 'package:movie_app/environment/flavor.dart';
 
-  runApp(MyApp(flavor: flavor));
-}
+late Flavor flavor;
 
 class MyApp extends StatelessWidget {
-  final String flavor;
 
-  const MyApp({Key? key, required this.flavor}) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +26,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => SavedMovieViewModel()),
       ],
       child: MaterialApp(
-        title: flavor == "dev" ? "Movie App (Dev)" : "Movie App",
+        title: "Movie App (${flavor.name})",
         debugShowCheckedModeBanner: false,
         initialRoute: RoutesNames.movies,
         onGenerateRoute: AppRoutes.generateRoute,
