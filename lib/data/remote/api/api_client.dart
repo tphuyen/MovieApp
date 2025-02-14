@@ -1,6 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:movie_app/main.dart';
 import 'package:movie_app/res/widgets/constants.dart';
+
+import 'package:movie_app/environment/flavor.dart';
 
 class ApiClient {
   static final ApiClient _instance = ApiClient._internal();
@@ -9,7 +12,7 @@ class ApiClient {
 
   final Dio _dio = Dio(
     BaseOptions(
-      baseUrl: Constants.baseUrl,
+      baseUrl: flavor.baseUrl,
       contentType: 'application/json',
       connectTimeout: const Duration(seconds: 30),
       receiveTimeout: const Duration(seconds: 30),
