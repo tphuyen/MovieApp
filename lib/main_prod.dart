@@ -8,14 +8,7 @@ import 'package:movie_app/firebase_options_prod.dart';
 import 'package:movie_app/services/notification_service.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );  // Khởi tạo Firebase
-  await FirebaseMessaging.instance.setAutoInitEnabled(true);
-  final fcmToken = await FirebaseMessaging.instance.getToken();
-  print("FCM token: ${fcmToken}");
-  await NotificationService.instance.initialize();
+  await startUp(DefaultFirebaseOptions.currentPlatform);
   flavor = Flavor.prod;
   runApp(const MyApp());
 }

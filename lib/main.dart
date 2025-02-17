@@ -15,11 +15,15 @@ import 'package:firebase_in_app_messaging/firebase_in_app_messaging.dart';
 
 late Flavor flavor;
 
-Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+Future<void> startUp(FirebaseOptions firebaseOptions) async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: firebaseOptions,
+  );
+  await FirebaseMessaging.instance.setAutoInitEnabled(true);
+  final fcmToken = await FirebaseMessaging.instance.getToken();
+  print("FCM token: ${fcmToken}");
   await NotificationService.instance.initialize();
-  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
