@@ -23,6 +23,7 @@ class CustomBottomNavBar extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       body: BlocBuilder<HomeBloc, HomeState>(
+        buildWhen: (previous, current) => previous.selectedIndex != current.selectedIndex,
         builder: (context, state) {
           return IndexedStack(
             index: state.selectedIndex,
@@ -31,6 +32,7 @@ class CustomBottomNavBar extends StatelessWidget {
         },
       ),
       bottomNavigationBar: BlocBuilder<HomeBloc, HomeState>(
+        buildWhen: (previous, current) => previous.selectedIndex != current.selectedIndex,
         builder: (context, state) {
           return BottomNavigationBar(
             currentIndex: state.selectedIndex,

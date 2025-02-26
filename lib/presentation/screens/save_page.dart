@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:movie_app/model/movie.dart';
 import 'package:movie_app/presentation/blocs/saved_movie/saved_movie_bloc.dart';
 import 'package:movie_app/presentation/blocs/saved_movie/saved_movie_event.dart';
 import 'package:movie_app/presentation/blocs/saved_movie/saved_movie_state.dart';
@@ -31,6 +30,10 @@ class SavedPage extends StatelessWidget {
       ),
       backgroundColor: Colors.white,
       body: BlocBuilder<SavedMovieBloc, SavedMovieState>(
+        buildWhen: (previous, current) {
+          return previous is! SavedMovieLoaded ||
+              (current is SavedMovieLoaded && previous.savedMovies != current.savedMovies);
+        },
         builder: (context, state) {
           if (state is SavedMovieLoaded && state.savedMovies.isNotEmpty) {
             return ListView.builder(

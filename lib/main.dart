@@ -36,23 +36,13 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  late final MovieRepository movieRepository;
-
-  @override
-  void initState() {
-    super.initState();
-    final apiClient = ApiClient();
-    final apiService = ApiService(apiClient);
-    movieRepository = MovieRepository(apiService);
-  }
-
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => HomeBloc()),
         BlocProvider(create: (_) => BaseBloc()),
-        BlocProvider(create: (_) => MovieBloc(movieRepository)..add(FetchMovies())),
+        BlocProvider(create: (_) => MovieBloc()..add(FetchMovies())),
         BlocProvider(create: (_) => SavedMovieBloc()),
       ],
       child: MaterialApp(

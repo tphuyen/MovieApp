@@ -1,4 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie_app/data/remote/api/api_client.dart';
+import 'package:movie_app/data/remote/api/api_service.dart';
+import 'package:movie_app/model/cast.dart';
+import 'package:movie_app/model/movie.dart';
 import 'package:movie_app/repository/movie_repository.dart';
 import 'package:movie_app/presentation/blocs/movie/movie_event.dart';
 import 'package:movie_app/presentation/blocs/movie/movie_state.dart';
@@ -7,7 +11,7 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
   final MovieRepository movieRepository;
 
 
-  MovieBloc(this.movieRepository) : super(MovieInitial()) {
+  MovieBloc() :movieRepository = MovieRepository(ApiService(ApiClient())), super(MovieInitial()) {
     on<FetchMovies>(_onFetchMovies);
     on<FetchMovieDetails>(_onFetchMovieDetails);
   }
@@ -15,9 +19,12 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
   Future<void> _onFetchMovies(FetchMovies event, Emitter<MovieState> emit) async {
     emit(const MovieLoading());
     try {
-      final nowPlayingMovies = await movieRepository.fetchNowPlayingMovies(page: 1);
-      final popularMovies = await movieRepository.fetchPopularMovies(page: 1);
-      emit(MovieLoaded(nowPlayingMovies: nowPlayingMovies, popularMovies: popularMovies));
+      final results = await Future.wait([
+        movieRepository.fetchNowPlayingMovies(page: 1),
+        movieRepository.fetchPopularMovies(page: 1),
+      ]);
+
+      emit(MovieLoaded(nowPlayingMovies: results[0], popularMovies: results[1]));
     } catch (e) {
       emit(MovieError("Error fetching movies: $e"));
     }
@@ -27,8 +34,14 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
     emit(const MovieLoading());
 
     try {
-      final fetchedMovie = await movieRepository.fetchMovieDetail(event.movieId);
-      final fetchedCast = await movieRepository.fetchMovieCredits(event.movieId);
+      final results = await Future.wait([
+        movieRepository.fetchMovieDetail(event.movieId),
+        movieRepository.fetchMovieCredits(event.movieId),
+      ]);
+
+      final fetchedMovie = results[0] as Movie?;
+
+      final fetchedCast = results[1] as List<CastMember>;
 
       if (fetchedMovie == null) {
         throw Exception("Movie details not found");
