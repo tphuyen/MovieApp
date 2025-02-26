@@ -1,7 +1,7 @@
 import 'package:movie_app/data/remote/api/api_client.dart';
 import 'package:movie_app/model/movie.dart';
 import 'package:movie_app/model/cast.dart';
-import 'package:movie_app/res/widgets/constants.dart';
+import 'package:movie_app/presentation/widgets/constants.dart';
 
 class ApiService {
   final ApiClient dio;

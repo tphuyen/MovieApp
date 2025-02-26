@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:movie_app/main.dart';
-import 'package:movie_app/res/widgets/constants.dart';
+import 'package:movie_app/presentation/widgets/constants.dart';
 
 import 'package:movie_app/environment/flavor.dart';
 

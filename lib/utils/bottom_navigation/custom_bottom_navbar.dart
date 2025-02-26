@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:movie_app/gen/assets.gen.dart';
-import 'package:movie_app/view/movie_page.dart';
-import 'package:movie_app/view/ticket_page.dart';
-import 'package:movie_app/view/save_page.dart';
-import 'package:movie_app/viewmodel/home_view_model.dart';
-import 'package:provider/provider.dart';
+import 'package:movie_app/presentation/blocs/home/home_bloc.dart';
+import 'package:movie_app/presentation/blocs/home/home_event.dart';
+import 'package:movie_app/presentation/blocs/home/home_state.dart';
+import 'package:movie_app/presentation/screens/movie_page.dart';
+import 'package:movie_app/presentation/screens/save_page.dart';
+import 'package:movie_app/presentation/screens/ticket_page.dart';
 
 class CustomBottomNavBar extends StatelessWidget {
   const CustomBottomNavBar({super.key});
@@ -20,20 +22,18 @@ class CustomBottomNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Selector<HomeViewModel, int>(
-        selector: (_, homeViewModel) => homeViewModel.selectedIndex,
-        builder: (context, selectedIndex, child) {
+      body: BlocBuilder<HomeBloc, HomeState>(
+        builder: (context, state) {
           return IndexedStack(
-            index: selectedIndex,
+            index: state.selectedIndex,
             children: pages,
           );
         },
       ),
-      bottomNavigationBar: Selector<HomeViewModel, int>(
-        selector: (_, homeViewModel) => homeViewModel.selectedIndex,
-        builder: (context, selectedIndex, child) {
+      bottomNavigationBar: BlocBuilder<HomeBloc, HomeState>(
+        builder: (context, state) {
           return BottomNavigationBar(
-            currentIndex: selectedIndex,
+            currentIndex: state.selectedIndex,
             showSelectedLabels: false,
             showUnselectedLabels: false,
             backgroundColor: Colors.white,
@@ -41,26 +41,26 @@ class CustomBottomNavBar extends StatelessWidget {
               BottomNavigationBarItem(
                 icon: SvgPicture.asset(
                   Assets.icons.bookmark,
-                  color: selectedIndex == 0 ? Colors.amber : null,
+                  color: state.selectedIndex == 0 ? Colors.amber : null,
                 ),
                 label: 'Movies',
               ),
               BottomNavigationBarItem(
                 icon: SvgPicture.asset(
                   Assets.icons.ticket,
-                  color: selectedIndex == 1 ? Colors.amber : null,
+                  color: state.selectedIndex == 1 ? Colors.amber : null,
                 ),
                 label: 'Tickets',
               ),
               BottomNavigationBarItem(
                 icon: SvgPicture.asset(
                   Assets.icons.saveUnclick,
-                  color: selectedIndex == 2 ? Colors.amber : null,
+                  color: state.selectedIndex == 2 ? Colors.amber : null,
                 ),
                 label: 'Save',
               ),
             ],
-            onTap: (index) => context.read<HomeViewModel>().updateIndex(index),
+            onTap: (index) => context.read<HomeBloc>().add(UpdateIndex(index)),
           );
         },
       ),

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:movie_app/gen/fonts.gen.dart';
 import 'package:movie_app/model/cast.dart';
 
-import 'package:movie_app/res/widgets/constants.dart';
+import 'package:movie_app/presentation/widgets/constants.dart';
 
 class CastCard extends StatelessWidget{
   final CastMember castMember;

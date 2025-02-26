@@ -19,7 +19,7 @@ class CastMember {
     required this.id,
     required this.name,
     required this.character,
-    required this.profilePath,
+    this.profilePath,
   });
 
   factory CastMember.fromJson(Map<String, dynamic> json) {

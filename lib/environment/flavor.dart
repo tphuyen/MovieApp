@@ -1,4 +1,4 @@
-import 'package:movie_app/res/widgets/constants.dart';
+import 'package:movie_app/presentation/widgets/constants.dart';
 
 enum Flavor {
   dev(
