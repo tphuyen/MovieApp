@@ -39,11 +39,18 @@ class $AssetsIconsGen {
   /// File path: assets/icons/clock.svg
   String get clock => 'assets/icons/clock.svg';
 
+  /// File path: assets/icons/dev_icon.jpg
+  AssetGenImage get devIcon => const AssetGenImage('assets/icons/dev_icon.jpg');
+
   /// File path: assets/icons/hamburger_menu.svg
   String get hamburgerMenu => 'assets/icons/hamburger_menu.svg';
 
   /// File path: assets/icons/play_vid.svg
   String get playVid => 'assets/icons/play_vid.svg';
+
+  /// File path: assets/icons/prod_icon.jpg
+  AssetGenImage get prodIcon =>
+      const AssetGenImage('assets/icons/prod_icon.jpg');
 
   /// File path: assets/icons/save_click.svg
   String get saveClick => 'assets/icons/save_click.svg';
@@ -58,23 +65,25 @@ class $AssetsIconsGen {
   String get ticketSelected => 'assets/icons/ticket_selected.svg';
 
   /// List of all assets
-  List<String> get values => [
-        back,
-        bookmark,
-        bookmarkSelected,
-        menu,
-        notif,
-        path,
-        play,
-        star,
-        clock,
-        hamburgerMenu,
-        playVid,
-        saveClick,
-        saveUnclick,
-        ticket,
-        ticketSelected
-      ];
+  List<dynamic> get values => [
+    back,
+    bookmark,
+    bookmarkSelected,
+    menu,
+    notif,
+    path,
+    play,
+    star,
+    clock,
+    devIcon,
+    hamburgerMenu,
+    playVid,
+    prodIcon,
+    saveClick,
+    saveUnclick,
+    ticket,
+    ticketSelected,
+  ];
 }
 
 class $AssetsImagesGen {
@@ -152,43 +161,39 @@ class $AssetsImagesGen {
 
   /// List of all assets
   List<AssetGenImage> get values => [
-        act1,
-        act2,
-        act3,
-        act4,
-        act5,
-        act6,
-        act7,
-        act8,
-        filmBgTrailer2,
-        filmBgTrailer3,
-        filmBgTrailer4,
-        filmBgTrailer5,
-        filmBgTrailer6,
-        post1,
-        post2,
-        post2Blur,
-        post3,
-        post3Blur,
-        post4,
-        post5,
-        post6
-      ];
+    act1,
+    act2,
+    act3,
+    act4,
+    act5,
+    act6,
+    act7,
+    act8,
+    filmBgTrailer2,
+    filmBgTrailer3,
+    filmBgTrailer4,
+    filmBgTrailer5,
+    filmBgTrailer6,
+    post1,
+    post2,
+    post2Blur,
+    post3,
+    post3Blur,
+    post4,
+    post5,
+    post6,
+  ];
 }
 
 class Assets {
-  Assets._();
+  const Assets._();
 
   static const $AssetsIconsGen icons = $AssetsIconsGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
 }
 
 class AssetGenImage {
-  const AssetGenImage(
-    this._assetName, {
-    this.size,
-    this.flavors = const {},
-  });
+  const AssetGenImage(this._assetName, {this.size, this.flavors = const {}});
 
   final String _assetName;
 
@@ -216,7 +221,7 @@ class AssetGenImage {
     bool gaplessPlayback = true,
     bool isAntiAlias = false,
     String? package,
-    FilterQuality filterQuality = FilterQuality.low,
+    FilterQuality filterQuality = FilterQuality.medium,
     int? cacheWidth,
     int? cacheHeight,
   }) {
@@ -248,15 +253,8 @@ class AssetGenImage {
     );
   }
 
-  ImageProvider provider({
-    AssetBundle? bundle,
-    String? package,
-  }) {
-    return AssetImage(
-      _assetName,
-      bundle: bundle,
-      package: package,
-    );
+  ImageProvider provider({AssetBundle? bundle, String? package}) {
+    return AssetImage(_assetName, bundle: bundle, package: package);
   }
 
   String get path => _assetName;
